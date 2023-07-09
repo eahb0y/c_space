@@ -96,7 +96,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         child: CustomButton(
          value: value),
       ),
-    );;
+    );
   }
 }
 

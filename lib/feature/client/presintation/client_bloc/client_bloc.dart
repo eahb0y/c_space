@@ -9,19 +9,29 @@ part 'client_state.dart';
 part 'client_event.dart';
 
 class ClientBloc extends Bloc<ClientEvent, ClientState> {
-  ClientBloc() : super(ClientInitialState()) {
+  ClientBloc()
+      : super(ClientState(
+          name: '',
+          clientData: [],
+          clientTotalTime: 6000,
+        )) {
     on<GetAndSetClientTime>(_setAndGet);
   }
 
-  Future<void> _setAndGet(GetAndSetClientTime event,
-      Emitter<ClientState> emit) async {
+  int totalMinutes = 0;
+  late int clientTotalTime;
+
+  Future<void> _setAndGet(
+      GetAndSetClientTime event, Emitter<ClientState> emit) async {
     await _setClient(event.name, event.locationName);
     await _getClient(event.name, event.locationName, emit);
   }
 
-
-  Future<void> _getClient(String name, String locationName, Emitter<ClientState> emit) async {
+  Future<void> _getClient(
+      String name, String locationName, Emitter<ClientState> emit) async {
     List<ClientModel> clientDate = [];
+    List<String> convertedTimes = [];
+
     try {
       final firebaseFirestore = await FirebaseFirestore.instance
           .collection(locationName)
@@ -31,9 +41,18 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
       firebaseFirestore.docs.forEach((element) {
         return clientDate.add(ClientModel.fromJson(element.data()));
       });
-      emit(ClientSuccessGetTimeState(clientDate));
+      emit(ClientState(
+        name: name,
+        clientData: clientDate,
+      ));
     } catch (error) {
-      emit(ClientErrorState(message: error.toString()));
+      emit(
+        ClientState(
+          name: 'error is $error',
+          clientData: [],
+          clientTotalTime: 0,
+        ),
+      );
     }
   }
 
@@ -68,18 +87,7 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
     }
   }
 
-  Future<void> _convertTime(List<ClientModel> listTime) async{
-    List<String> convertedTimes = [];
-    for (var element in listTime) {
-      if(element != '--/--'){
-        String converting = convertTo24HourFormat(element.toString());
-        convertedTimes.add(converting);
-      }
-
-    }
-  }
-
-  String convertTo24HourFormat(String time){
+  String convertTo24HourFormat(String time) {
     List<String> timeParts = time.split(' ');
     String timeString = timeParts[0];
     String meridiem = timeParts.length > 1 ? timeParts[1].toUpperCase() : '';
@@ -92,7 +100,8 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
     } else if (meridiem == 'AM' && hours == 12) {
       hours = 0;
     }
-    String formattedTime = '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}';
+    String formattedTime =
+        '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}';
     return formattedTime;
   }
 }

@@ -19,6 +19,9 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     WelcomeScreenBloc initValue = BlocProvider.of<WelcomeScreenBloc>(context);
     initValue.add(InitialEvent());
+    String name = initValue.state.locationName;
+    print('Location');
+    print(initValue.state.locationName.isEmpty ? 'no data' : name);
   }
   @override
   Widget build(BuildContext context) {

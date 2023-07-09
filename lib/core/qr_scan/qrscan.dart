@@ -1,13 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:c_space/feature/client/presintation/client_bloc/client_bloc.dart';
+import 'package:c_space/feature/client/presintation/pages/client_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-// ignore: must_be_immutable
 class QRSan extends StatefulWidget {
-  final String? locationName;
+  final String locationName;
 
   QRSan({
     Key? key,
@@ -83,8 +83,19 @@ class _QRSanState extends State<QRSan> {
                             context.read<ClientBloc>().add(
                                   GetAndSetClientTime(
                                       name: result!.code.toString(),
-                                      locationName: widget.locationName ?? ''),
+                                      locationName: widget.locationName),
                                 );
+                            print(widget.locationName);
+                            print(state.clientData);
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ClientScreen(
+                                  name: result!.code.toString(),
+                                  locationName: widget.locationName,
+                                ),
+                              ),
+                            );
                           },
                           child: const Text('Check',
                               style: TextStyle(fontSize: 20)),
@@ -95,6 +106,32 @@ class _QRSanState extends State<QRSan> {
                 ],
               ),
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.all(8),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await controller?.pauseCamera();
+                  },
+                  child: const Text('pause',
+                      style: TextStyle(fontSize: 20)),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.all(8),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await controller?.resumeCamera();
+                  },
+                  child: const Text('resume',
+                      style: TextStyle(fontSize: 20)),
+                ),
+              )
+            ],
           ),
         ],
       ),
@@ -115,7 +152,7 @@ class _QRSanState extends State<QRSan> {
           borderLength: 30,
           borderWidth: 10,
           cutOutSize: scanArea),
-      onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
+      onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, true),
     );
   }
 

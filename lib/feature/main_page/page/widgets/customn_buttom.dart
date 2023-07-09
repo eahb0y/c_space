@@ -26,15 +26,24 @@ class _CustomButtonState extends State<CustomButton> {
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
           child: OutlinedButton(
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: isSelected ? Colors.purple : Colors.red , width: 1),
+                side: BorderSide(color: isSelected ? Colors.purple : Colors.red , width: 5),
                 minimumSize: const Size.fromHeight(45),
               ),
               onPressed: () {
-                  context.read<WelcomeScreenBloc>().add(SetLocation(
-                   currentLocation: widget.value ?? ' '));
+                if(widget.value!.isNotEmpty){
+                  context
+                      .read<WelcomeScreenBloc>()
+                      .add(SetLocation(currentLocation: widget.value ?? ''));
                   Navigator.pushNamed(context, RoutName.qrPage);
                   print(name);
-                },
+                }
+                else{
+                  setState(() {
+                    isSelected = false;
+                  });
+                  print(isSelected);
+                }
+              },
               child: const Text(
                 'Войти',
                 style: TextStyle(

@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
       BlocProvider(create: (context) => WelcomeScreenBloc())
     ]
         , child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           onGenerateRoute: Rout.controller,
           initialRoute: RoutName.mainPage,
         ));

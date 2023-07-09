@@ -16,13 +16,12 @@ class WelcomeScreenBloc extends Bloc<WelcomeScreenEvent, WelcomeScreenState> {
     await state._locationStorage.add(event.currentLocation);
     String currentLocalLocation = await state._locationStorage.getAt(0);
     emit(WelcomeScreenState(hasLocation: true, locationName: currentLocalLocation));
-    print('Lenght ${state._locationStorage.length}');
-    print(currentLocalLocation);
   }
 
   Future<void> checkLocalStorage(InitialEvent event, Emitter<WelcomeScreenState>emit) async {
     if(state._locationStorage.isNotEmpty){
-      emit(WelcomeScreenState(hasLocation: true, locationName: ''));
+      String currentLocalLocation = state._locationStorage.getAt(0);
+      emit(WelcomeScreenState(hasLocation: true, locationName: currentLocalLocation));
     }
     else{
       emit(WelcomeScreenState(hasLocation: false, locationName: ''));
