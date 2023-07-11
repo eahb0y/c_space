@@ -2,7 +2,6 @@ import 'package:c_space/feature/main_page/page/widgets/customn_buttom.dart';
 import 'package:flutter/material.dart';
 
 class MainScreenWidget extends StatefulWidget {
-
   MainScreenWidget({super.key});
 
   @override
@@ -40,16 +39,20 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
             const SizedBox(
               height: 30,
             ),
-            const Text('Добро пожаловать', style: TextStyle(
-                fontSize: 32
-            ),),
+            const Text(
+              'Добро пожаловать',
+              style: TextStyle(fontSize: 32),
+            ),
             const SizedBox(
               height: 130,
             ),
-            const Text('Выберите свою локацыю', style: TextStyle(
-              color: Colors.grey,
-              fontSize: 18,
-            ),),
+            const Text(
+              'Выберите свою локацию',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 18,
+              ),
+            ),
             const SizedBox(
               height: 10,
             ),
@@ -76,12 +79,11 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                       setState(() {
                         this.value = value!;
                       });
-                      if(locationsList.contains(value)){
+                      if (locationsList.contains(value)) {
                         setState(() {
                           isSelected = true;
                         });
-                      }
-                      else{
+                      } else {
                         isSelected = false;
                       }
                       print(value);
@@ -93,14 +95,13 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
       ),
       bottomSheet: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: CustomButton(
-         value: value),
+        child: CustomButton(value: value),
       ),
     );
   }
 }
 
 DropdownMenuItem<String> buildItem(String item) => DropdownMenuItem(
-  value: item,
-  child: Center(child: Text(item)),
-);
+      value: item,
+      child: Center(child: Text(item)),
+    );

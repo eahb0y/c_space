@@ -3,27 +3,27 @@ part of 'client_bloc.dart';
 class ClientState extends Equatable {
   final List<ClientModel> clientData;
   final String name;
-  final double? clientTotalTime;
+  final bool hasUser;
 
   ClientState({
     required this.name,
     required this.clientData,
-    this.clientTotalTime,
+    required this.hasUser,
   });
 
   ClientState copyWith({
     List<ClientModel>? clientData,
     String? name,
-    double? clientTotalTime,
+    bool? hasUser,
   }) {
     return ClientState(
       name: name ?? this.name,
       clientData: clientData ?? this.clientData,
-      clientTotalTime: clientTotalTime ?? this.clientTotalTime,
+      hasUser: hasUser ?? this.hasUser,
     );
   }
 
   @override
-  List<Object?> get props => [name, clientData, clientTotalTime];
+  List<Object?> get props => [name, clientData, hasUser];
 }
 

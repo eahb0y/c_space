@@ -4,7 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'feature/client/presintation/client_bloc/client_bloc.dart';
+import 'feature/client/presintation/bloc/client_bloc/client_bloc.dart';
+import 'feature/client/presintation/bloc/time_bloc/time_bloc.dart';
 import 'feature/main_page/bloc/main_page_bloc.dart';
 
 Future<void> main() async {
@@ -17,17 +18,19 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(providers:[
-      BlocProvider(create: (context) => ClientBloc()),
-      BlocProvider(create: (context) => WelcomeScreenBloc())
-    ]
-        , child: MaterialApp(
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => ClientBloc()),
+          BlocProvider(create: (context) => WelcomeScreenBloc()),
+          BlocProvider(create: (context) => TimeBloc()),
+        ],
+        child: MaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: Rout.controller,
           initialRoute: RoutName.mainPage,
         ));
-
   }
 }

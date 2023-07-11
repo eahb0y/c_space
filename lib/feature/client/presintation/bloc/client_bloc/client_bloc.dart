@@ -13,25 +13,23 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
       : super(ClientState(
           name: '',
           clientData: [],
-          clientTotalTime: 6000,
+          hasUser: false,
         )) {
     on<GetAndSetClientTime>(_setAndGet);
   }
 
-  int totalMinutes = 0;
-  late int clientTotalTime;
+
 
   Future<void> _setAndGet(
       GetAndSetClientTime event, Emitter<ClientState> emit) async {
     await _setClient(event.name, event.locationName);
     await _getClient(event.name, event.locationName, emit);
+    // await _convertTime( emit);
   }
 
   Future<void> _getClient(
       String name, String locationName, Emitter<ClientState> emit) async {
     List<ClientModel> clientDate = [];
-    List<String> convertedTimes = [];
-
     try {
       final firebaseFirestore = await FirebaseFirestore.instance
           .collection(locationName)
@@ -41,16 +39,13 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
       firebaseFirestore.docs.forEach((element) {
         return clientDate.add(ClientModel.fromJson(element.data()));
       });
-      emit(ClientState(
-        name: name,
-        clientData: clientDate,
-      ));
+      emit(ClientState(name: name, clientData: clientDate, hasUser: true));
     } catch (error) {
       emit(
         ClientState(
           name: 'error is $error',
           clientData: [],
-          clientTotalTime: 0,
+          hasUser: false,
         ),
       );
     }
@@ -87,21 +82,7 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
     }
   }
 
-  String convertTo24HourFormat(String time) {
-    List<String> timeParts = time.split(' ');
-    String timeString = timeParts[0];
-    String meridiem = timeParts.length > 1 ? timeParts[1].toUpperCase() : '';
-    List<String> timeDigits = timeString.split(':');
-    int hours = int.parse(timeDigits[0]);
-    int minutes = int.parse(timeDigits[1]);
-    int seconds = timeDigits.length > 2 ? int.parse(timeDigits[2]) : 0;
-    if (meridiem == 'PM' && hours < 12) {
-      hours += 12;
-    } else if (meridiem == 'AM' && hours == 12) {
-      hours = 0;
-    }
-    String formattedTime =
-        '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}';
-    return formattedTime;
-  }
+
+
+
 }

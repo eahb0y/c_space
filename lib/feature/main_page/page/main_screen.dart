@@ -13,7 +13,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   @override
-
   //** initialize to check has any data in local storage **//
   void initState() {
     super.initState();
@@ -23,12 +22,14 @@ class _MainScreenState extends State<MainScreen> {
     print('Location');
     print(initValue.state.locationName.isEmpty ? 'no data' : name);
   }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WelcomeScreenBloc, WelcomeScreenState>(builder: (context, state){
-      return state.hasLocation ? QRSan(locationName: state.locationName) : MainScreenWidget();
+    return BlocBuilder<WelcomeScreenBloc, WelcomeScreenState>(
+        builder: (context, state) {
+      return state.hasLocation
+          ? QRSan(locationName: state.locationName)
+          : MainScreenWidget();
     });
   }
 }
-
-

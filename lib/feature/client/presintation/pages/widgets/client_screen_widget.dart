@@ -32,7 +32,7 @@ class ClientScreenWidget extends StatelessWidget {
                 child: Card(
                   child: ListTile(
                     title: Center(
-                      child: Text(data![index].checkIn),
+                      child: Text(data![index].checkOut),
                     ),
                   ),
                 ),

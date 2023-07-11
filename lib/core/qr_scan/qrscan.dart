@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:c_space/feature/client/presintation/client_bloc/client_bloc.dart';
+import 'package:c_space/feature/client/presintation/bloc/client_bloc/client_bloc.dart';
 import 'package:c_space/feature/client/presintation/pages/client_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,9 +48,9 @@ class _QRSanState extends State<QRSan> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   if (result != null)
-                    Text('Data: ${result!.code}')
+                    Text('Имя: ${result!.code}')
                   else
-                    const Text('Scan a code'),
+                    const Text('Отсканируйте qr-код'),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,7 +97,7 @@ class _QRSanState extends State<QRSan> {
                               ),
                             );
                           },
-                          child: const Text('Check',
+                          child: const Text('Регистрироваться',
                               style: TextStyle(fontSize: 20)),
                         );
                       },
@@ -107,32 +107,32 @@ class _QRSanState extends State<QRSan> {
               ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                margin: const EdgeInsets.all(8),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await controller?.pauseCamera();
-                  },
-                  child: const Text('pause',
-                      style: TextStyle(fontSize: 20)),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.all(8),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await controller?.resumeCamera();
-                  },
-                  child: const Text('resume',
-                      style: TextStyle(fontSize: 20)),
-                ),
-              )
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   crossAxisAlignment: CrossAxisAlignment.center,
+          //   children: <Widget>[
+          //     Container(
+          //       margin: const EdgeInsets.all(8),
+          //       child: ElevatedButton(
+          //         onPressed: () async {
+          //           await controller?.pauseCamera();
+          //         },
+          //         child: const Text('pause',
+          //             style: TextStyle(fontSize: 20)),
+          //       ),
+          //     ),
+          //     Container(
+          //       margin: const EdgeInsets.all(8),
+          //       child: ElevatedButton(
+          //         onPressed: () async {
+          //           await controller?.resumeCamera();
+          //         },
+          //         child: const Text('resume',
+          //             style: TextStyle(fontSize: 20)),
+          //       ),
+          //     )
+          //   ],
+          // ),
         ],
       ),
     );

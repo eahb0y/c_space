@@ -6,9 +6,9 @@ void main(){
       '8:36:33 AM',
       '5:55:46 PM',
       '2:44:17 AM',
-      '10:22:12 PM',
+      '1:22:12 PM',
       '--/--',
-      '11:10:14 AM',
+      '1:10:14 AM',
       '9:03:60 PM',
     ];
     List<String> convertedTimes = [];
@@ -40,8 +40,7 @@ void main(){
       for (var element in listOfTime) {
         if (element != '--/--') {
           String converting = convertTo24HourFormat(element.toString());
-          convertedTimes.add(converting);
-          List<String> parts = element.split(':');
+          List<String> parts = converting.split(':');
           int hours = int.parse(parts[0]);
           int minutes = int.parse(parts[1]);
           totalMinutes += hours * 60 + minutes;

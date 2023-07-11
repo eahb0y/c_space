@@ -17,6 +17,7 @@ class CustomButton extends StatefulWidget {
 
 class _CustomButtonState extends State<CustomButton> {
   bool isSelected = true;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WelcomeScreenBloc, WelcomeScreenState>(
@@ -26,18 +27,18 @@ class _CustomButtonState extends State<CustomButton> {
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
           child: OutlinedButton(
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: isSelected ? Colors.purple : Colors.red , width: 5),
+                side: BorderSide(
+                    color: isSelected ? Colors.purple : Colors.red, width: 1),
                 minimumSize: const Size.fromHeight(45),
               ),
               onPressed: () {
-                if(widget.value!.isNotEmpty){
+                if (widget.value!.isNotEmpty) {
                   context
                       .read<WelcomeScreenBloc>()
                       .add(SetLocation(currentLocation: widget.value ?? ''));
                   Navigator.pushNamed(context, RoutName.qrPage);
                   print(name);
-                }
-                else{
+                } else {
                   setState(() {
                     isSelected = false;
                   });
@@ -47,7 +48,7 @@ class _CustomButtonState extends State<CustomButton> {
               child: const Text(
                 'Войти',
                 style: TextStyle(
-                  color:  Colors.purple,
+                  color: Colors.purple,
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ),

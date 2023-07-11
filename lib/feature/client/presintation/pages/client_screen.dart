@@ -1,5 +1,9 @@
+import 'dart:ui';
+
 import 'package:c_space/core/qr_scan/qrscan.dart';
-import 'package:c_space/feature/client/presintation/client_bloc/client_bloc.dart';
+import 'package:c_space/feature/client/presintation/bloc/client_bloc/client_bloc.dart';
+import 'package:c_space/feature/client/presintation/bloc/time_bloc/time_bloc.dart';
+import 'package:c_space/feature/client/presintation/pages/widgets/client_info_screen.dart';
 import 'package:c_space/feature/client/presintation/pages/widgets/client_screen_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,24 +29,37 @@ class _ClientScreenState extends State<ClientScreen> {
     BlocProvider.of<ClientBloc>(context).add(GetAndSetClientTime(
         name: widget.name, locationName: widget.locationName));
   }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ClientBloc, ClientState>(
       builder: (context, state) {
-        print(state.clientData);
         return Scaffold(
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
-                title: Text(widget.name),
+                title: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(widget.name,
+                  style:  TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 30
+                  ),),
+                ),
                 backgroundColor: Colors.purple,
-                actions: [Icon(Icons.person)],
+                actions: [Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: IconButton(onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ClientInfoScreen(clientData: state.clientData,)),
+                    );
+                  }, icon: Icon(Icons.person, size: 30,)),
+                )],
                 expandedHeight: 150,
                 pinned: true,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: Text(state.clientTotalTime.toString()),
-                ),
+                // flexibleSpace: FlexibleSpaceBar(
+                //   title: Text('6000'),
+                // ),
               ),
               SliverAppBar(
                 backgroundColor: Colors.white,
@@ -58,16 +75,20 @@ class _ClientScreenState extends State<ClientScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Check in', style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600
-                        ),),
-                        Text('Check out', style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600
-                        ),),
+                        Text(
+                          'Пришел',
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          'Ушел',
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600),
+                        ),
                       ],
                     ),
                   ),
@@ -83,7 +104,7 @@ class _ClientScreenState extends State<ClientScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    minimumSize: Size(150, 45), // put the width and height you want, standard ones are 64, 40
+                  minimumSize: Size(150, 45),
                 ),
                 onPressed: () {
                   Navigator.pushReplacement(
@@ -95,7 +116,7 @@ class _ClientScreenState extends State<ClientScreen> {
                     ),
                   );
                 },
-                child: const Text('Check')),
+                child: const Text('Регистрировать')),
           ),
         );
       },
