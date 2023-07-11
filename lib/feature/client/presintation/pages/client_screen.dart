@@ -1,8 +1,5 @@
-import 'dart:ui';
-
 import 'package:c_space/core/qr_scan/qrscan.dart';
 import 'package:c_space/feature/client/presintation/bloc/client_bloc/client_bloc.dart';
-import 'package:c_space/feature/client/presintation/bloc/time_bloc/time_bloc.dart';
 import 'package:c_space/feature/client/presintation/pages/widgets/client_info_screen.dart';
 import 'package:c_space/feature/client/presintation/pages/widgets/client_screen_widget.dart';
 import 'package:flutter/material.dart';

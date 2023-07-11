@@ -17,12 +17,14 @@ class _ClientInfoScreenState extends State<ClientInfoScreen> {
     super.initState();
     context.read<TimeBloc>().add(GetTotalTime(
         clientDate: widget.clientData));
+    print(widget.clientData);
   }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TimeBloc, TimeState>(
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
