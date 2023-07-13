@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:c_space/feature/client/presintation/bloc/client_bloc/client_bloc.dart';
+import 'package:c_space/feature/client/presintation/pages/argument/client_argument.dart';
 import 'package:c_space/feature/client/presintation/pages/client_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -91,8 +92,10 @@ class _QRSanState extends State<QRSan> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => ClientScreen(
-                                  name: result!.code.toString(),
-                                  locationName: widget.locationName,
+                                  argument: ClientArgument(
+                                    locationName: widget.locationName,
+                                    name: result!.code.toString(),
+                                  ),
                                 ),
                               ),
                             );
