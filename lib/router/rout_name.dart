@@ -1,5 +1,6 @@
 class RoutName{
-  static const mainPage = '/';
+  static const initial = '/';
+  static const mainPage = '/mainPage';
   static const qrPage = '/qrPage';
   static const clientPage = '/clientPage';
 }

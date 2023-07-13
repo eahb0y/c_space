@@ -1,5 +1,5 @@
 import 'package:c_space/feature/main_page/bloc/main_page_bloc.dart';
-import 'package:c_space/router/rout_name/rout_name.dart';
+import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
