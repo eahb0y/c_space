@@ -3,4 +3,5 @@ class RoutName{
   static const mainPage = '/mainPage';
   static const qrPage = '/qrPage';
   static const clientPage = '/clientPage';
+  static const clientInfo = '/clientInfo';
 }

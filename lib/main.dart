@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'feature/client/presintation/bloc/client_bloc/client_bloc.dart';
-import 'feature/client/presintation/bloc/time_bloc/time_bloc.dart';
 import 'feature/main_page/bloc/main_page_bloc.dart';
 import 'injection_container.dart' as di;
 
@@ -27,7 +26,6 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => ClientBloc()),
           BlocProvider(create: (context) => WelcomeScreenBloc()),
-          BlocProvider(create: (context) => TimeBloc()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

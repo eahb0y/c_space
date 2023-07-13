@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ClientInfoScreen extends StatefulWidget {
-  final List<ClientModel> clientData;
+  final List<ClientModel>? clientData;
   const ClientInfoScreen({super.key, required this.clientData});
 
   @override
@@ -16,7 +16,7 @@ class _ClientInfoScreenState extends State<ClientInfoScreen> {
   void initState() {
     super.initState();
     context.read<TimeBloc>().add(GetTotalTime(
-        clientDate: widget.clientData));
+        clientDate: widget.clientData ?? []));
   }
   @override
   Widget build(BuildContext context) {

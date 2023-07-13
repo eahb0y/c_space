@@ -1,10 +1,11 @@
 import 'package:c_space/feature/client/presintation/bloc/client_bloc/client_bloc.dart';
 import 'package:c_space/feature/client/presintation/pages/argument/client_argument.dart';
-import 'package:c_space/feature/client/presintation/pages/widgets/client_info_screen.dart';
 import 'package:c_space/feature/client/presintation/pages/widgets/client_screen_widget.dart';
 import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'argument/client_argument_info.dart';
 
 class ClientScreen extends StatefulWidget {
   final ClientArgument? argument;
@@ -46,12 +47,14 @@ class _ClientScreenState extends State<ClientScreen> {
                     padding: const EdgeInsets.all(5.0),
                     child: IconButton(
                         onPressed: () {
-                          Navigator.push(
+                          print('sadadsadsada+++++______-------');
+                          print(state.clientData);
+                          Navigator.pushNamed(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => ClientInfoScreen(
-                                      clientData: state.clientData,
-                                    )),
+                            RoutName.clientInfo,
+                            arguments: ClientInfoArgument(
+                              clientModel: state.clientData,
+                            ),
                           );
                         },
                         icon: Icon(
