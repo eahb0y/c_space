@@ -1,6 +1,6 @@
 part of 'time_bloc.dart';
 
-@immutable
+
 abstract class TimeEvent extends Equatable {}
 
 class GetTotalTime extends TimeEvent{

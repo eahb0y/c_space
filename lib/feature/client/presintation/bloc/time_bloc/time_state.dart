@@ -1,6 +1,6 @@
 part of 'time_bloc.dart';
 
-@immutable
+
 class TimeState extends Equatable {
   final String? clientTotalTime;
 

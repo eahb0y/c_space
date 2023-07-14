@@ -23,6 +23,7 @@ class _ClientInfoScreenState extends State<ClientInfoScreen> {
     return BlocBuilder<TimeBloc, TimeState>(
       builder: (context, state) {
         return Scaffold(
+          appBar: AppBar(),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

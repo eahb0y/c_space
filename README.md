@@ -1,2 +1,2 @@
 # c_space
-app for trecking clients and employee checkIn and checkOut time
+app for tracking clients and employee checkIn and checkOut time
