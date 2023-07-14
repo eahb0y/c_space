@@ -87,11 +87,9 @@ class _QRSanState extends State<QRSan> {
                                       name: result!.code.toString(),
                                       locationName: widget.argument?.locationName ?? ''),
                                 );
-                            print(widget.argument?.locationName);
-                            print(state.clientData);
-                            Navigator.pushNamed(
+                            Navigator.pushReplacementNamed(
                               context,
-                              RoutName.clientInfo,
+                              RoutName.clientPage,
                               arguments: ClientArgument(
                                 locationName: widget.argument?.locationName ?? '',
                                 name: result!.code.toString(),

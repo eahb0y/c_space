@@ -27,12 +27,14 @@ class _SplashPageState extends State<SplashPage> {
       () {
         if (context.mounted) {
           if (sl<LocalSource>().box.isNotEmpty) {
-            Navigator.of(context).pushReplacementNamed(
+            Navigator.of(context).pushNamedAndRemoveUntil(
               RoutName.qrPage,
+                (route) => false,
               arguments: QrScanArgument(
                 locationName: sl<LocalSource>().getLocation(),
               ),
             );
+            print(sl<LocalSource>().getLocation());
           } else {
             Navigator.of(context).pushReplacementNamed(RoutName.mainPage);
           }

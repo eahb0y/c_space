@@ -1,5 +1,7 @@
 import 'package:c_space/constants.dart';
+import 'package:c_space/core/local_data/local_source.dart';
 import 'package:c_space/feature/client/data/model/client_get_time_model.dart';
+import 'package:c_space/injection_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +11,7 @@ part 'client_state.dart';
 part 'client_event.dart';
 
 class ClientBloc extends Bloc<ClientEvent, ClientState> {
+  String locationNameLocal = sl<LocalSource>().getLocation();
   ClientBloc()
       : super(ClientState(
           name: '',
@@ -22,17 +25,17 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
 
   Future<void> _setAndGet(
       GetAndSetClientTime event, Emitter<ClientState> emit) async {
-    await _setClient(event.name, event.locationName);
-    await _getClient(event.name, event.locationName, emit);
+    await _setClient(event.name);
+    await _getClient(event.name, emit);
     // await _convertTime( emit);
   }
 
   Future<void> _getClient(
-      String name, String locationName, Emitter<ClientState> emit) async {
+      String name, Emitter<ClientState> emit) async {
     List<ClientModel> clientDate = [];
     try {
       final firebaseFirestore = await FirebaseFirestore.instance
-          .collection(locationName)
+          .collection(locationNameLocal)
           .doc('100 hour')
           .collection(name)
           .get();
@@ -51,9 +54,11 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
     }
   }
 
-  Future<void> _setClient(String name, String locationName) async {
+  Future<void> _setClient(String name) async {
+    print(locationNameLocal);
+    print("dataaaaaa");
     DocumentSnapshot snap2 = await FirebaseFirestore.instance
-        .collection(locationName)
+        .collection(locationNameLocal)
         .doc('100 hour')
         .collection(name)
         .doc(currentDay)
@@ -61,7 +66,7 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
     try {
       String snap = snap2['checkIn'];
       await FirebaseFirestore.instance
-          .collection(locationName)
+          .collection(locationNameLocal)
           .doc('100 hour')
           .collection(name)
           .doc(currentDay)
@@ -71,7 +76,7 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
       });
     } catch (e) {
       await FirebaseFirestore.instance
-          .collection(locationName)
+          .collection(locationNameLocal)
           .doc('100 hour')
           .collection(name)
           .doc(currentDay)

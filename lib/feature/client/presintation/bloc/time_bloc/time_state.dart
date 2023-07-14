@@ -2,14 +2,14 @@ part of 'time_bloc.dart';
 
 
 class TimeState extends Equatable {
-  final String? clientTotalTime;
+  final int? clientTotalTime;
 
   TimeState({
     this.clientTotalTime,
   });
 
   TimeState copyWith({
-    String? clientTotalTime,
+    int? clientTotalTime,
   }) {
     return TimeState(
       clientTotalTime: clientTotalTime ?? this.clientTotalTime,

@@ -15,9 +15,10 @@ class WelcomeScreenBloc extends Bloc<WelcomeScreenEvent, WelcomeScreenState> {
 
   Future<void> _createLocation(
       SetLocation event, Emitter<WelcomeScreenState> emit) async {
+    print("looog setlocation");
+    print(event.currentLocation);
     sl<LocalSource>().setLocation(event.currentLocation);
-    String currentLocalLocation = sl<LocalSource>().getLocation();
     emit(WelcomeScreenState(
-        hasLocation: true, locationName: currentLocalLocation));
+        hasLocation: true, locationName: event.currentLocation));
   }
 }

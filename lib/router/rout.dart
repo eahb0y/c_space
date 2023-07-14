@@ -1,9 +1,9 @@
 import 'package:c_space/core/qr_scan/qrscan.dart';
 import 'package:c_space/core/qr_scan/qrscan_argument.dart';
-import 'package:c_space/feature/client/data/model/client_get_time_model.dart';
 import 'package:c_space/feature/client/presintation/bloc/client_bloc/client_bloc.dart';
 import 'package:c_space/feature/client/presintation/bloc/time_bloc/time_bloc.dart';
 import 'package:c_space/feature/client/presintation/pages/argument/client_argument.dart';
+import 'package:c_space/feature/client/presintation/pages/argument/client_argument_info.dart';
 import 'package:c_space/feature/client/presintation/pages/client_screen.dart';
 import 'package:c_space/feature/client/presintation/pages/widgets/client_info_screen.dart';
 import 'package:c_space/feature/main_page/bloc/main_page_bloc.dart';
@@ -47,8 +47,8 @@ class Rout {
             builder: (context) => BlocProvider(
                   create: (context) => TimeBloc(),
                   child: ClientInfoScreen(
-                      clientData: settings.arguments is List<ClientModel>
-                          ? settings.arguments as List<ClientModel>
+                      argument: settings.arguments is ClientInfoArgument
+                          ? settings.arguments as ClientInfoArgument
                           : null),
                 ));
       default:

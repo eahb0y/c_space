@@ -47,13 +47,16 @@ class _ClientScreenState extends State<ClientScreen> {
                     padding: const EdgeInsets.all(5.0),
                     child: IconButton(
                         onPressed: () {
-                          print('sadadsadsada+++++______-------');
+                          print('=======================');
                           print(state.clientData);
+                          print('=======================');
+
                           Navigator.pushNamed(
                             context,
                             RoutName.clientInfo,
                             arguments: ClientInfoArgument(
                               clientModel: state.clientData,
+                              clientName: state.name
                             ),
                           );
                         },
@@ -115,7 +118,7 @@ class _ClientScreenState extends State<ClientScreen> {
                   minimumSize: Size(150, 45),
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(
+                  Navigator.pushReplacementNamed(
                     context,
                     RoutName.qrPage,
                     arguments: widget.argument?.locationName,
