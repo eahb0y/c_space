@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'feature/client/presintation/bloc/client_bloc/client_bloc.dart';
-import 'feature/main_page/bloc/main_page_bloc.dart';
 import 'injection_container.dart' as di;
 
 Future<void> main() async {
@@ -25,7 +24,6 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => ClientBloc()),
-          BlocProvider(create: (context) => WelcomeScreenBloc()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

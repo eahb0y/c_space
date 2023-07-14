@@ -1,3 +1,4 @@
+import 'package:c_space/core/qr_scan/qrscan_argument.dart';
 import 'package:c_space/feature/main_page/bloc/main_page_bloc.dart';
 import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _CustomButtonState extends State<CustomButton> {
                   context
                       .read<WelcomeScreenBloc>()
                       .add(SetLocation(currentLocation: widget.value ?? ''));
-                  Navigator.pushNamed(context, RoutName.qrPage);
+                  Navigator.pushNamed(context, RoutName.qrPage, arguments: QrScanArgument(locationName: widget.value));
                   print(name);
                 } else {
                   setState(() {

@@ -12,8 +12,8 @@ late Box<dynamic> _box;
 Future<void> init() async {
   await initHive();
   sl.registerSingleton<LocalSource>(LocalSource(_box));
-  sl.registerSingleton<WelcomeScreenBloc>(WelcomeScreenBloc());
   sl.registerSingleton<ClientBloc>(ClientBloc());
+  sl.registerFactory(() => WelcomeScreenBloc());
 }
 
 Future<void> initHive() async {

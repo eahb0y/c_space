@@ -9,8 +9,3 @@ class SetLocation extends WelcomeScreenEvent{
   List<Object?> get props => [currentLocation];
 }
 
-class InitialEvent extends WelcomeScreenEvent{
-  @override
-  List<Object?> get props => [];
-
-}

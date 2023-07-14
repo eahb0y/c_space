@@ -4,11 +4,14 @@ class LocalSource {
   final Box<dynamic> box;
   LocalSource(this.box);
 
-  void setHasProfile(String locationName) {
+  void setLocation(String locationName) {
     box.put('location', locationName);
   }
 
-  bool getHasProfile() {
+  String getCurrentLocation() {
     return box.get('location') ?? false;
+  }
+  String getLocation(){
+    return box.get('location');
   }
 }

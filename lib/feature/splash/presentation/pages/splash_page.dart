@@ -1,4 +1,5 @@
 import 'package:c_space/core/local_data/local_source.dart';
+import 'package:c_space/core/qr_scan/qrscan_argument.dart';
 import 'package:c_space/injection_container.dart';
 import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
@@ -17,16 +18,21 @@ class _SplashPageState extends State<SplashPage> {
     super.didChangeDependencies();
     Future.delayed(
       const Duration(milliseconds: 500),
-          () {
+      () {
         FlutterNativeSplash.remove();
       },
     );
     Future.delayed(
       const Duration(milliseconds: 1500),
-          () {
+      () {
         if (context.mounted) {
-          if (sl<LocalSource>().getHasProfile()) {
-            Navigator.of(context).pushReplacementNamed(RoutName.qrPage);
+          if (sl<LocalSource>().box.isNotEmpty) {
+            Navigator.of(context).pushReplacementNamed(
+              RoutName.qrPage,
+              arguments: QrScanArgument(
+                locationName: sl<LocalSource>().getLocation(),
+              ),
+            );
           } else {
             Navigator.of(context).pushReplacementNamed(RoutName.mainPage);
           }

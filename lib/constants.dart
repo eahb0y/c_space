@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-String currentDay = DateFormat('dd-MM-yyyy').format(DateTime.now());
+String currentDay = DateFormat('yyyy-MM-dd').format(DateTime.now());
 String currentTime = DateFormat('HH:mm').format(DateTime.now());
 
 

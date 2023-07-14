@@ -1,58 +1,38 @@
-void main(){
-    List<String> time = [
-      '5:12:02 PM',
-      '7:51:21 AM',
-      '1:21:09 PM',
-      '8:36:33 AM',
-      '5:55:46 PM',
-      '2:44:17 AM',
-      '1:22:12 PM',
-      '--/--',
-      '1:10:14 AM',
-      '9:03:60 PM',
-    ];
-    List<String> convertedTimes = [];
-    int totalMinutes = 0;
-    late int clientTotalTime;
+import 'package:flutter/material.dart';
 
+import 'constants.dart';
 
+void main() {
+  List<String> timePairs = [
+    '10:00:00', "11:30:00",
+    '12:30:00', "14:00:00",
+    '15:45:00', '--/--',
+    '15:45:00', "17:00:00",
+    '15:45:00', "17:00:00",
+    '15:45:00', "--/--",
+    '15:45:00', "17:00:00"
+  ];
 
-    String convertTo24HourFormat(String time) {
-      List<String> timeParts = time.split(' ');
-      String timeString = timeParts[0];
-      String meridiem = timeParts.length > 1 ? timeParts[1].toUpperCase() : '';
-      List<String> timeDigits = timeString.split(':');
-      int hours = int.parse(timeDigits[0]);
-      int minutes = int.parse(timeDigits[1]);
-      int seconds = timeDigits.length > 2 ? int.parse(timeDigits[2]) : 0;
-      if (meridiem == 'PM' && hours < 12) {
-        hours += 12;
-      } else if (meridiem == 'AM' && hours == 12) {
-        hours = 0;
-      }
-      String formattedTime =
-          '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}';
-      return formattedTime;
+  List<int> timeDifferences = [];
+  int time = 0;
+
+  for (int i = 0; i < timePairs.length; i += 2) {
+    String startTime = timePairs[i];
+    String endTime = timePairs[i + 1];
+
+    if (endTime == "--/--") {
+      timeDifferences.add(0); // or any other value to represent missing end time
+    } else {
+      DateTime start = DateTime.parse('$currentDay ' + startTime);
+      DateTime end = DateTime.parse('$currentDay '  + endTime);
+
+      Duration difference = end.difference(start);
+      int minutes = difference.inMinutes;
+
+      timeDifferences.add(minutes);
+      time += minutes;
     }
-
-    void converTime(List<String>listOfTime){
-
-      for (var element in listOfTime) {
-        if (element != '--/--') {
-          String converting = convertTo24HourFormat(element.toString());
-          List<String> parts = converting.split(':');
-          int hours = int.parse(parts[0]);
-          int minutes = int.parse(parts[1]);
-          totalMinutes += hours * 60 + minutes;
-        }
-      }
-      clientTotalTime = 6000 - totalMinutes;
-
-    }
-    converTime(time);
-
-    print(convertedTimes);
-    print(totalMinutes);
-    print(clientTotalTime);
-
   }
+
+  print("Time differences in minutes: $timeDifferences, $time");
+}

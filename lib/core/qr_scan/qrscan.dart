@@ -1,18 +1,19 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:c_space/core/qr_scan/qrscan_argument.dart';
 import 'package:c_space/feature/client/presintation/bloc/client_bloc/client_bloc.dart';
 import 'package:c_space/feature/client/presintation/pages/argument/client_argument.dart';
-import 'package:c_space/feature/client/presintation/pages/client_screen.dart';
+import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRSan extends StatefulWidget {
-  final String locationName;
+  final QrScanArgument? argument;
 
   QRSan({
     Key? key,
-    required this.locationName,
+    required this.argument,
   }) : super(key: key);
 
   @override
@@ -84,19 +85,16 @@ class _QRSanState extends State<QRSan> {
                             context.read<ClientBloc>().add(
                                   GetAndSetClientTime(
                                       name: result!.code.toString(),
-                                      locationName: widget.locationName),
+                                      locationName: widget.argument?.locationName ?? ''),
                                 );
-                            print(widget.locationName);
+                            print(widget.argument?.locationName);
                             print(state.clientData);
-                            Navigator.pushReplacement(
+                            Navigator.pushNamed(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => ClientScreen(
-                                  argument: ClientArgument(
-                                    locationName: widget.locationName,
-                                    name: result!.code.toString(),
-                                  ),
-                                ),
+                              RoutName.clientInfo,
+                              arguments: ClientArgument(
+                                locationName: widget.argument?.locationName ?? '',
+                                name: result!.code.toString(),
                               ),
                             );
                           },
