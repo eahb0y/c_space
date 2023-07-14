@@ -37,7 +37,9 @@ class _CustomButtonState extends State<CustomButton> {
                   context
                       .read<WelcomeScreenBloc>()
                       .add(SetLocation(currentLocation: widget.value ?? ''));
-                  Navigator.pushNamed(context, RoutName.qrPage, arguments: QrScanArgument(locationName: widget.value));
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, RoutName.qrPage, (route) => false,
+                      arguments: QrScanArgument(locationName: widget.value));
                   print(name);
                 } else {
                   setState(() {
