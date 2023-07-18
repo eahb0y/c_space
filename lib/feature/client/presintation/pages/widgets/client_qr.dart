@@ -1,29 +1,26 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:c_space/feature/client/presintation/bloc/client_get_time_bloc/client_bloc.dart';
-import 'package:c_space/router/rout.dart';
-import 'package:c_space/router/rout_name.dart';
+import 'package:c_space/feature/client/presintation/bloc/client_set_time_bloc/client_set_time_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class QRSan extends StatefulWidget {
+class ClientQr extends StatefulWidget {
 
-  QRSan({
+  ClientQr({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _QRSanState();
+  State<StatefulWidget> createState() => _ClientQrState();
 }
 
-class _QRSanState extends State<QRSan> {
+class _ClientQrState extends State<ClientQr> {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   bool isIconOne = true;
-  bool getName = true;
 
   @override
   void reassemble() {
@@ -37,7 +34,9 @@ class _QRSanState extends State<QRSan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.purple,
+      ),
       body: Column(
         children: <Widget>[
           Expanded(flex: 4, child: _buildQrView(context)),
@@ -74,21 +73,21 @@ class _QRSanState extends State<QRSan> {
                   ),
                   Container(
                     margin: const EdgeInsets.all(8),
-                    child: BlocBuilder<ClientGetTimeBloc, ClientGetTimeState>(
+                    child: BlocBuilder<ClientSetTimeBloc, ClientSetTimeState>(
                       builder: (context, state) {
                         return ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: getName ? Colors.blue : Colors.red,
+                            backgroundColor: Colors.purple
                           ),
                           onPressed: () {
-                            context.read<ClientGetTimeBloc>().add(
-                                  ClientGetTime(
-                                    name: result!.code.toString(),
-                                  ),
-                                );
-                            Navigator.pushReplacementNamed(
-                              rootNavigatorKey.currentContext!,
-                              RoutName.client,
+                            context.read<ClientSetTimeBloc>().add(
+                              SetClientTime(
+                                name: result!.code.toString(),
+                              ),
+                            );
+                            Navigator.pop(
+                              context,
+                              result!.code.toString()
                             );
                           },
                           child: const Text('Регистрироваться',
@@ -134,7 +133,7 @@ class _QRSanState extends State<QRSan> {
 
   Widget _buildQrView(BuildContext context) {
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
-            MediaQuery.of(context).size.height < 400)
+        MediaQuery.of(context).size.height < 400)
         ? 250.0
         : 300.0;
     return QRView(

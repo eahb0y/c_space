@@ -1,10 +1,13 @@
-import 'package:c_space/core/qr_scan/qrscan.dart';
-import 'package:c_space/feature/client/presintation/bloc/client_bloc/client_bloc.dart';
+import 'package:c_space/feature/client/presintation/bloc/client_get_time_bloc/client_bloc.dart';
+import 'package:c_space/feature/client/presintation/bloc/client_set_time_bloc/client_set_time_bloc.dart';
 import 'package:c_space/feature/client/presintation/bloc/time_bloc/time_bloc.dart';
 import 'package:c_space/feature/client/presintation/pages/argument/client_argument_info.dart';
 import 'package:c_space/feature/client/presintation/pages/client_screen.dart';
 import 'package:c_space/feature/client/presintation/pages/widgets/client_info_screen.dart';
+import 'package:c_space/feature/client/presintation/pages/widgets/client_qr.dart';
+import 'package:c_space/feature/employee/presentation/bloc/employee_set_time_bloc/employee_set_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/page/employee_page.dart';
+import 'package:c_space/feature/employee/presentation/page/widget/employee_qr.dart';
 import 'package:c_space/feature/login/bloc/login_page_bloc.dart';
 import 'package:c_space/feature/login/page/main_screen_widget.dart';
 import 'package:c_space/feature/main/presentation/pages/main_page.dart';
@@ -42,18 +45,29 @@ class Rout {
             ),
           ),
         );
-      case RoutName.qr:
+      case RoutName.clientQr:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => ClientBloc(),
-            child: QRSan(),
+            create: (context) => sl<ClientSetTimeBloc>(),
+            child: ClientQr(),
+          ),
+        );
+      case RoutName.employeeQr:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => sl<EmployeeSetTimeBloc>(),
+            child: EmployeeQr(),
           ),
         );
       case RoutName.client:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
-                  create: (context) => ClientBloc(),
-                  child: ClientScreen(),
+                  create: (context) => sl<ClientGetTimeBloc>(),
+                  child: ClientScreen(
+                    name: settings.arguments is String
+                        ? settings.arguments as String
+                        : '',
+                  ),
                 ));
       case RoutName.clientInfo:
         return MaterialPageRoute(
@@ -64,6 +78,7 @@ class Rout {
                           ? settings.arguments as ClientInfoArgument
                           : null),
                 ));
+
       default:
         throw ('The rout does not exist');
     }
@@ -79,7 +94,10 @@ class Rout {
       case RoutName.employee:
         return buildPageWithDefaultTransition(child: EmployeePage());
       case RoutName.client:
-        return buildPageWithDefaultTransition(child: ClientScreen());
+        return buildPageWithDefaultTransition(
+            child: ClientScreen(
+          name: '',
+        ));
       default:
         return MaterialPageRoute(builder: (_) => const EmployeePage());
     }

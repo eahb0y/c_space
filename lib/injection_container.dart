@@ -1,7 +1,10 @@
 import 'dart:io';
 import 'package:c_space/core/qr_scan/qrscan.dart';
-import 'package:c_space/feature/client/presintation/bloc/client_bloc/client_bloc.dart';
+import 'package:c_space/feature/client/presintation/bloc/client_get_time_bloc/client_bloc.dart';
+import 'package:c_space/feature/client/presintation/bloc/client_set_time_bloc/client_set_time_bloc.dart';
 import 'package:c_space/feature/client/presintation/bloc/time_bloc/time_bloc.dart';
+import 'package:c_space/feature/employee/presentation/bloc/employee_get_time_bloc/employee_get_time_bloc.dart';
+import 'package:c_space/feature/employee/presentation/bloc/employee_set_time_bloc/employee_set_time_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
@@ -15,7 +18,10 @@ late Box<dynamic> _box;
 Future<void> init() async {
   await initHive();
   sl.registerSingleton<LocalSource>(LocalSource(_box));
-  sl.registerFactory(() => ClientBloc());
+  sl.registerFactory(() => ClientGetTimeBloc());
+  sl.registerFactory(() => ClientSetTimeBloc());
+  sl.registerFactory(() => EmployeeSetTimeBloc());
+  sl.registerFactory(() => EmployeeGetTimeBloc());
   sl.registerFactory(() => LoginPageBloc());
   sl.registerFactory(() => TimeBloc());
   sl.registerLazySingleton<MainBloc>(() => MainBloc());
