@@ -1,16 +1,16 @@
-part of '../../main_page/bloc/main_page_bloc.dart';
+part of 'login_page_bloc.dart';
 
-class WelcomeScreenState extends Equatable {
+class LoginPageState extends Equatable {
   final bool hasLocation;
   final String locationName;
 
-  WelcomeScreenState({required this.hasLocation, required this.locationName});
+  LoginPageState({required this.hasLocation, required this.locationName});
 
-  WelcomeScreenState copyWith({
+  LoginPageState copyWith({
     bool? hasLocation,
     String? locationName,
   }) {
-    return WelcomeScreenState(
+    return LoginPageState(
       hasLocation: hasLocation ?? this.hasLocation,
       locationName: locationName ?? this.locationName,
     );

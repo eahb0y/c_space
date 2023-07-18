@@ -1,5 +1,4 @@
-import 'package:c_space/core/qr_scan/qrscan_argument.dart';
-import 'package:c_space/feature/main_page/bloc/main_page_bloc.dart';
+import 'package:c_space/feature/login/bloc/login_page_bloc.dart';
 import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +20,7 @@ class _CustomButtonState extends State<CustomButton> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WelcomeScreenBloc, WelcomeScreenState>(
+    return BlocBuilder<LoginPageBloc, LoginPageState>(
       builder: (context, state) {
         String name = state.locationName;
         return Padding(
@@ -35,11 +34,10 @@ class _CustomButtonState extends State<CustomButton> {
               onPressed: () {
                 if (widget.value!.isNotEmpty) {
                   context
-                      .read<WelcomeScreenBloc>()
+                      .read<LoginPageBloc>()
                       .add(SetLocation(currentLocation: widget.value ?? ''));
                   Navigator.pushNamedAndRemoveUntil(
-                      context, RoutName.qrPage, (route) => false,
-                      arguments: QrScanArgument(locationName: widget.value));
+                      context, RoutName.main, (route) => false);
                   print(name);
                 } else {
                   setState(() {

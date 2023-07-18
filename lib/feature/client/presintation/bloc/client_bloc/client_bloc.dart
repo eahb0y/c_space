@@ -14,7 +14,7 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
   String locationNameLocal = sl<LocalSource>().getLocation();
   ClientBloc()
       : super(ClientState(
-          name: '',
+          name: 'None',
           clientData: [],
           hasUser: false,
         )) {
@@ -27,7 +27,16 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
       GetAndSetClientTime event, Emitter<ClientState> emit) async {
     await _setClient(event.name);
     await _getClient(event.name, emit);
-    // await _convertTime( emit);
+    print(locationNameLocal);
+    print(locationNameLocal);
+    print(locationNameLocal);
+    print(locationNameLocal);
+    print(locationNameLocal);
+    print(locationNameLocal);
+    print(locationNameLocal);
+    print(locationNameLocal);
+
+
   }
 
   Future<void> _getClient(
@@ -51,6 +60,7 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
           hasUser: false,
         ),
       );
+      print(error);
     }
   }
 
@@ -86,8 +96,4 @@ class ClientBloc extends Bloc<ClientEvent, ClientState> {
       });
     }
   }
-
-
-
-
 }

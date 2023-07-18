@@ -1,25 +1,17 @@
-import 'package:c_space/feature/main_page/page/widgets/customn_buttom.dart';
+import 'package:c_space/constants.dart';
+import 'package:c_space/feature/login/page/widgets/customn_buttom.dart';
 import 'package:flutter/material.dart';
 
-class MainScreenWidget extends StatefulWidget {
-  MainScreenWidget({super.key});
+class LoginPage extends StatefulWidget {
+  LoginPage({super.key});
 
   @override
-  State<MainScreenWidget> createState() => _MainScreenWidgetState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _MainScreenWidgetState extends State<MainScreenWidget> {
+class _LoginPageState extends State<LoginPage> {
   String? value;
-
   late bool isSelected;
-
-  List<String> locationsList = [
-    "Maksim Gorkiy",
-    "Labzak",
-    "Yunusabad",
-    "Elbek"
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +24,12 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
             Align(
               alignment: Alignment.topCenter,
               child: Ink(
-                padding: const EdgeInsets.symmetric(horizontal: 70),
-                child: Image.asset('assets/images/c_space.png'),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 70,
+                ),
+                child: Image.asset(
+                  'assets/images/c_space.png',
+                ),
               ),
             ),
             const SizedBox(
@@ -94,8 +90,12 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         ),
       ),
       bottomSheet: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: CustomButton(value: value),
+        padding: const EdgeInsets.all(
+          16.0,
+        ),
+        child: CustomButton(
+          value: value,
+        ),
       ),
     );
   }
@@ -103,5 +103,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
 
 DropdownMenuItem<String> buildItem(String item) => DropdownMenuItem(
       value: item,
-      child: Center(child: Text(item)),
+      child: Center(
+        child: Text(item),
+      ),
     );

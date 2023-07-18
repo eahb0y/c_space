@@ -1,5 +1,4 @@
 import 'package:c_space/core/local_data/local_source.dart';
-import 'package:c_space/core/qr_scan/qrscan_argument.dart';
 import 'package:c_space/injection_container.dart';
 import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
@@ -28,15 +27,12 @@ class _SplashPageState extends State<SplashPage> {
         if (context.mounted) {
           if (sl<LocalSource>().box.isNotEmpty) {
             Navigator.of(context).pushNamedAndRemoveUntil(
-              RoutName.qrPage,
-                (route) => false,
-              arguments: QrScanArgument(
-                locationName: sl<LocalSource>().getLocation(),
-              ),
+              RoutName.main,
+              (route) => false,
             );
             print(sl<LocalSource>().getLocation());
           } else {
-            Navigator.of(context).pushReplacementNamed(RoutName.mainPage);
+            Navigator.of(context).pushReplacementNamed(RoutName.login);
           }
         }
       },

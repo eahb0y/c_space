@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:c_space/core/time_parse/time_parse.dart';
 import 'package:c_space/feature/client/data/model/client_get_time_model.dart';
-import 'package:c_space/injection_container.dart';
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
 

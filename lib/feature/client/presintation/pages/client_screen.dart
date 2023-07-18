@@ -1,6 +1,6 @@
 import 'package:c_space/feature/client/presintation/bloc/client_bloc/client_bloc.dart';
-import 'package:c_space/feature/client/presintation/pages/argument/client_argument.dart';
 import 'package:c_space/feature/client/presintation/pages/widgets/client_screen_widget.dart';
+import 'package:c_space/router/rout.dart';
 import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,23 +8,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'argument/client_argument_info.dart';
 
 class ClientScreen extends StatefulWidget {
-  final ClientArgument? argument;
 
-  const ClientScreen({super.key, required this.argument});
+  const ClientScreen({
+    super.key,
+  });
 
   @override
   State<ClientScreen> createState() => _ClientScreenState();
 }
 
 class _ClientScreenState extends State<ClientScreen> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<ClientBloc>().add(GetAndSetClientTime(
-          name: widget.argument?.name ?? '',
-          locationName: widget.argument?.locationName ?? '',
-        ));
-  }
+
+  // void initState() {
+  //   super.initState();
+  //   context.read<ClientBloc>().add(
+  //         GetAndSetClientTime(
+  //           name: widget.name ?? '',
+  //         ),
+  //       );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +37,15 @@ class _ClientScreenState extends State<ClientScreen> {
             slivers: [
               SliverAppBar(
                 title: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(
+                    16.0,
+                  ),
                   child: Text(
-                    widget.argument?.name ?? '',
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 30),
+                    state.name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 30,
+                    ),
                   ),
                 ),
                 backgroundColor: Colors.purple,
@@ -47,16 +54,12 @@ class _ClientScreenState extends State<ClientScreen> {
                     padding: const EdgeInsets.all(5.0),
                     child: IconButton(
                         onPressed: () {
-                          print('=======================');
-                          print(state.clientData);
-                          print('=======================');
-
                           Navigator.pushNamed(
-                            context,
+                            rootNavigatorKey.currentContext!,
                             RoutName.clientInfo,
                             arguments: ClientInfoArgument(
                               clientModel: state.clientData,
-                              clientName: state.name
+                              clientName: state.name,
                             ),
                           );
                         },
@@ -66,39 +69,42 @@ class _ClientScreenState extends State<ClientScreen> {
                         )),
                   )
                 ],
-                expandedHeight: 150,
+                expandedHeight: 100,
                 pinned: true,
-                // flexibleSpace: FlexibleSpaceBar(
-                //   title: Text('6000'),
-                // ),
               ),
               SliverAppBar(
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.purple.shade300,
                 elevation: 5,
                 pinned: true,
                 bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(-40),
+                  preferredSize: Size.fromHeight(
+                    -40,
+                  ),
                   child: SizedBox(),
                 ),
                 flexibleSpace: Center(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 80),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 60,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
                           'Пришел',
                           style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600),
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                         Text(
                           'Ушел',
                           style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600),
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ],
                     ),
@@ -106,7 +112,6 @@ class _ClientScreenState extends State<ClientScreen> {
                 ),
               ),
               ClientScreenWidget(
-                location: widget.argument?.locationName ?? '',
                 data: state.clientData,
               ),
             ],
@@ -114,17 +119,18 @@ class _ClientScreenState extends State<ClientScreen> {
           bottomNavigationBar: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
             child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(150, 45),
-                ),
-                onPressed: () {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    RoutName.qrPage,
-                    arguments: widget.argument?.locationName,
-                  );
-                },
-                child: const Text('Регистрировать')),
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(150, 45),
+                backgroundColor: Colors.purple
+              ),
+              onPressed: () {
+                Navigator.pushNamed(
+                  rootNavigatorKey.currentContext!,
+                  RoutName.qr,
+                );
+              },
+              child: const Text('Регистрировать'),
+            ),
           ),
         );
       },

@@ -6,7 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ClientInfoScreen extends StatefulWidget {
   final ClientInfoArgument? argument;
 
-  const ClientInfoScreen({super.key, required this.argument});
+  const ClientInfoScreen({
+    super.key,
+    required this.argument,
+  });
 
   @override
   State<ClientInfoScreen> createState() => _ClientInfoScreenState();
@@ -16,9 +19,11 @@ class _ClientInfoScreenState extends State<ClientInfoScreen> {
   @override
   void initState() {
     super.initState();
-    context
-        .read<TimeBloc>()
-        .add(GetTotalTime(clientDate: widget.argument?.clientModel ?? []));
+    context.read<TimeBloc>().add(
+          GetTotalTime(
+            clientDate: widget.argument?.clientModel ?? [],
+          ),
+        );
   }
 
   @override
@@ -26,12 +31,11 @@ class _ClientInfoScreenState extends State<ClientInfoScreen> {
     return BlocBuilder<TimeBloc, TimeState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            backgroundColor: Colors.purple,
+          ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 40,
-                vertical: 20
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
             child: Column(
               children: [
                 SizedBox(
@@ -42,7 +46,7 @@ class _ClientInfoScreenState extends State<ClientInfoScreen> {
                     Text(
                       'Клиент: ',
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 25,
                       ),
                     ),
                     SizedBox(
@@ -50,13 +54,14 @@ class _ClientInfoScreenState extends State<ClientInfoScreen> {
                     ),
                     Ink(
                       child: Center(
-                          child: Text(
-                        widget.argument?.clientName ?? '',
-                        style: TextStyle(
-                          color: Colors.black54,
-                          fontSize: 30,
+                        child: Text(
+                          widget.argument?.clientName ?? '',
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 25,
+                          ),
                         ),
-                      )),
+                      ),
                     ),
                   ],
                 ),
@@ -68,18 +73,18 @@ class _ClientInfoScreenState extends State<ClientInfoScreen> {
                     Text(
                       'Осталось: ',
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 25,
                       ),
                     ),
                     SizedBox(
-                      width: 15,
+                      width: 10,
                     ),
                     Ink(
                       child: Text(
                         '${state.clientTotalTime} минут',
                         style: TextStyle(
                           color: Colors.black54,
-                          fontSize: 30,
+                          fontSize: 25,
                         ),
                       ),
                     ),

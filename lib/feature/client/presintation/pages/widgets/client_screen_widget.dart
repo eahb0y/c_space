@@ -5,11 +5,9 @@ class ClientScreenWidget extends StatelessWidget {
   const ClientScreenWidget({
     super.key,
     required this.data,
-    required this.location,
   });
 
   final List<ClientModel>? data;
-  final String location;
 
   @override
   Widget build(BuildContext context) {

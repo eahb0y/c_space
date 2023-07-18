@@ -1,19 +1,17 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:c_space/core/qr_scan/qrscan_argument.dart';
+
 import 'package:c_space/feature/client/presintation/bloc/client_bloc/client_bloc.dart';
-import 'package:c_space/feature/client/presintation/pages/argument/client_argument.dart';
+import 'package:c_space/router/rout.dart';
 import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRSan extends StatefulWidget {
-  final QrScanArgument? argument;
 
   QRSan({
     Key? key,
-    required this.argument,
   }) : super(key: key);
 
   @override
@@ -39,6 +37,7 @@ class _QRSanState extends State<QRSan> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Column(
         children: <Widget>[
           Expanded(flex: 4, child: _buildQrView(context)),
@@ -84,16 +83,12 @@ class _QRSanState extends State<QRSan> {
                           onPressed: () {
                             context.read<ClientBloc>().add(
                                   GetAndSetClientTime(
-                                      name: result!.code.toString(),
-                                      locationName: widget.argument?.locationName ?? ''),
+                                    name: result!.code.toString(),
+                                  ),
                                 );
                             Navigator.pushReplacementNamed(
-                              context,
-                              RoutName.clientPage,
-                              arguments: ClientArgument(
-                                locationName: widget.argument?.locationName ?? '',
-                                name: result!.code.toString(),
-                              ),
+                              rootNavigatorKey.currentContext!,
+                              RoutName.client,
                             );
                           },
                           child: const Text('Регистрироваться',
