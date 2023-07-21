@@ -43,6 +43,8 @@ class EmployeeGetTimeBloc
         ),
       );
     } catch (error) {
+      print('asdasdadsasdadsa');
+      print('$error' );
       emit(
         state.copyWith(checkIn: '-/-', checkOut: '-/-', employeeName: 'eahb0y'),
       );

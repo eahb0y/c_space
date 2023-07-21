@@ -56,10 +56,7 @@ class EmployeePage extends StatelessWidget {
                         name: value,
                       ),
                     );
-                    print('asdasdadsadsa');
                     print(value);
-                    print('asdasdadsadsa');
-
                   }
                 });
               },
