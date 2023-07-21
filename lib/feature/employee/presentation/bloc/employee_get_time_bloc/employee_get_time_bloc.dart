@@ -23,10 +23,12 @@ class EmployeeGetTimeBloc
   }
 
   Future<void> _getEmployee(
-      EmployeeGetTime event, Emitter<EmployeeGetTimeState> emit) async {
+    EmployeeGetTime event,
+    Emitter<EmployeeGetTimeState> emit,
+  ) async {
     try {
-      DocumentSnapshot snap = await FirebaseFirestore
-          .instance
+       await Future.delayed( Duration(seconds: 1));
+      DocumentSnapshot snap = await FirebaseFirestore.instance
           .collection(locationNameLocal)
           .doc('employee')
           .collection(event.name)
@@ -40,13 +42,7 @@ class EmployeeGetTimeBloc
           checkOut: snap['checkOut'],
         ),
       );
-      print(snap['checkOut']);
-      print(snap['checkOut']);
-      print(snap['checkIn']);
-      print(snap['checkIn']);
-      print(snap['checkOut']);
     } catch (error) {
-      print("$error adasdasdasdasdasdasdadasfsdfg");
       emit(
         state.copyWith(checkIn: '-/-', checkOut: '-/-', employeeName: 'eahb0y'),
       );

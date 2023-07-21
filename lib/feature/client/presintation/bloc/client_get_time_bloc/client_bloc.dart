@@ -18,6 +18,7 @@ class ClientGetTimeBloc extends Bloc<ClientGetTimeEvent, ClientGetTimeState> {
   Future<void> _getClient(ClientGetTime event, Emitter<ClientGetTimeState> emit) async {
     List<ClientModel> clientDate = [];
     try {
+      await Future.delayed( Duration(seconds: 1));
       final firebaseFirestore = await FirebaseFirestore.instance
           .collection(locationNameLocal)
           .doc('100 hour')

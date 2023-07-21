@@ -9,16 +9,21 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 part 'employee_set_time_event.dart';
+
 part 'employee_set_time_state.dart';
 
-class EmployeeSetTimeBloc extends Bloc<EmployeeSetTimeEvent, EmployeeSetTimeState> {
+class EmployeeSetTimeBloc
+    extends Bloc<EmployeeSetTimeEvent, EmployeeSetTimeState> {
   String locationNameLocal = sl<LocalSource>().getLocation();
 
   EmployeeSetTimeBloc() : super(EmployeeSetTimeState()) {
     on<EmployeeSetTime>(_setEmployee);
   }
 
-  Future<void> _setEmployee(EmployeeSetTime event, Emitter<EmployeeSetTimeState> emit) async {
+  Future<void> _setEmployee(
+    EmployeeSetTime event,
+    Emitter<EmployeeSetTimeState> emit,
+  ) async {
     print(locationNameLocal);
     print("dataaaaaa");
     DocumentSnapshot snap2 = await FirebaseFirestore.instance
