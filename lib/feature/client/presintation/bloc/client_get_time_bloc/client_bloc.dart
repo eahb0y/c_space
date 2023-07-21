@@ -34,7 +34,7 @@ class ClientGetTimeBloc extends Bloc<ClientGetTimeEvent, ClientGetTimeState> {
           clientData: [],
         ),
       );
-      print("$error   dfsafasadsada");
+      print("$error");
     }
   }
 }

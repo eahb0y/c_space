@@ -8,10 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'argument/client_argument_info.dart';
 
 class ClientScreen extends StatefulWidget {
-final String name;
+
   const ClientScreen({
     super.key,
-    required this.name
   });
 
   @override

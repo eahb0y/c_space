@@ -5,6 +5,7 @@ import 'package:c_space/feature/client/presintation/pages/argument/client_argume
 import 'package:c_space/feature/client/presintation/pages/client_screen.dart';
 import 'package:c_space/feature/client/presintation/pages/widgets/client_info_screen.dart';
 import 'package:c_space/feature/client/presintation/pages/widgets/client_qr.dart';
+import 'package:c_space/feature/employee/presentation/bloc/employee_get_time_bloc/employee_get_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/bloc/employee_set_time_bloc/employee_set_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/page/employee_page.dart';
 import 'package:c_space/feature/employee/presentation/page/widget/employee_qr.dart';
@@ -61,14 +62,7 @@ class Rout {
         );
       case RoutName.client:
         return MaterialPageRoute(
-            builder: (context) => BlocProvider(
-                  create: (context) => sl<ClientGetTimeBloc>(),
-                  child: ClientScreen(
-                    name: settings.arguments is String
-                        ? settings.arguments as String
-                        : '',
-                  ),
-                ));
+            builder: (context) => ClientScreen());
       case RoutName.clientInfo:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
@@ -78,7 +72,9 @@ class Rout {
                           ? settings.arguments as ClientInfoArgument
                           : null),
                 ));
-
+      case RoutName.employee:
+        return MaterialPageRoute(
+            builder: (context) => EmployeePage());
       default:
         throw ('The rout does not exist');
     }
@@ -95,9 +91,7 @@ class Rout {
         return buildPageWithDefaultTransition(child: EmployeePage());
       case RoutName.client:
         return buildPageWithDefaultTransition(
-            child: ClientScreen(
-          name: '',
-        ));
+            child: ClientScreen());
       default:
         return MaterialPageRoute(builder: (_) => const EmployeePage());
     }

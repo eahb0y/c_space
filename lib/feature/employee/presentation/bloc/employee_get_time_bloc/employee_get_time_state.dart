@@ -1,6 +1,6 @@
 part of 'employee_get_time_bloc.dart';
 
-@immutable
+
 class EmployeeGetTimeState extends Equatable {
   final String employeeName;
   final String checkIn;

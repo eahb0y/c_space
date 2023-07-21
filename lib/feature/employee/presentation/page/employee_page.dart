@@ -48,14 +48,18 @@ class EmployeePage extends StatelessWidget {
                 Navigator.pushNamed(
                   rootNavigatorKey.currentContext!,
                   RoutName.employeeQr,
-                ).then((value) =>
+                ).then((value)
                 {
                   if(value is String ){
                     context.read<EmployeeGetTimeBloc>().add(
                       EmployeeGetTime(
                         name: value,
                       ),
-                    )
+                    );
+                    print('asdasdadsadsa');
+                    print(value);
+                    print('asdasdadsadsa');
+
                   }
                 });
               },
