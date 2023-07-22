@@ -6,7 +6,6 @@ import 'package:c_space/core/local_data/local_source.dart';
 import 'package:c_space/injection_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 part 'employee_get_time_event.dart';
 
@@ -18,7 +17,7 @@ class EmployeeGetTimeBloc
 
   EmployeeGetTimeBloc()
       : super(EmployeeGetTimeState(
-            checkIn: '--/--', checkOut: '--/--', employeeName: 'Работник')) {
+            checkIn: '--/--', checkOut: '--/--', employeeName: 'Работник')){
     on<EmployeeGetTime>(_getEmployee);
   }
 
@@ -26,6 +25,9 @@ class EmployeeGetTimeBloc
     EmployeeGetTime event,
     Emitter<EmployeeGetTimeState> emit,
   ) async {
+    print("I am getting data from base");
+    await Future.delayed( Duration(seconds: 1));
+    print(event.name);
     try {
        await Future.delayed( Duration(seconds: 1));
       DocumentSnapshot snap = await FirebaseFirestore.instance
@@ -43,6 +45,7 @@ class EmployeeGetTimeBloc
         ),
       );
     } catch (error) {
+      print("$error asdasdadasda");
       emit(
         state.copyWith(checkIn: '-/-', checkOut: '-/-', employeeName: 'eahb0y'),
       );

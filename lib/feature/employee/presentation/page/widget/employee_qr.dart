@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:c_space/feature/client/presintation/bloc/client_set_time_bloc/client_set_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/bloc/employee_set_time_bloc/employee_set_time_bloc.dart';
+import 'package:c_space/router/rout.dart';
+import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -86,9 +86,11 @@ class _EmployeeQrState extends State<EmployeeQr> {
                                 name: result!.code.toString(),
                               ),
                             );
-                            Navigator.pop(
-                                context,
-                                result!.code.toString()
+                            Navigator.pushNamed(
+                                rootNavigatorKey.currentContext!,
+                              RoutName.employee,
+                              arguments: result!.code.toString()
+
                             );
                           },
                           child: const Text('Регистрироваться',

@@ -7,4 +7,5 @@ class RoutName{
   static const clientInfo = '/clientInfo';
   static const employee = '/employee';
   static const employeeQr = '/employeeQr';
+  static const timeTracker = '/timeTracker';
 }

@@ -1,6 +1,5 @@
 part of 'employee_set_time_bloc.dart';
 
-@immutable
 abstract class EmployeeSetTimeEvent extends Equatable {}
 
 class EmployeeSetTime extends EmployeeSetTimeEvent{

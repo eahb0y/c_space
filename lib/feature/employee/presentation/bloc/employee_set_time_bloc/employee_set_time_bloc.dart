@@ -6,7 +6,6 @@ import 'package:c_space/core/local_data/local_source.dart';
 import 'package:c_space/injection_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
 part 'employee_set_time_event.dart';
 
@@ -24,6 +23,7 @@ class EmployeeSetTimeBloc
     EmployeeSetTime event,
     Emitter<EmployeeSetTimeState> emit,
   ) async {
+    print("I am setting data to base");
     print(locationNameLocal);
     print("dataaaaaa");
     DocumentSnapshot snap2 = await FirebaseFirestore.instance

@@ -22,7 +22,8 @@ class MainPage extends StatelessWidget {
         BlocProvider(create: (_) => sl<ClientSetTimeBloc>()),
         BlocProvider(create: (_) => sl<ClientGetTimeBloc>()),
         BlocProvider(create: (_) => sl<EmployeeSetTimeBloc>()),
-        BlocProvider(create: (_) => sl<EmployeeGetTimeBloc>())
+        BlocProvider(create: (_) => sl<EmployeeGetTimeBloc>()),
+
       ],
       child: MainBody(
         initialRoute: initialRoute,
@@ -92,7 +93,7 @@ class _MainBodyState extends State<MainBody> {
       case 0:
         Navigator.of(shellRootNavigatorKey.currentContext!)
             .pushNamedAndRemoveUntil(
-          RoutName.employee,
+          RoutName.timeTracker,
           (route) => false,
         );
         break;
