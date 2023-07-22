@@ -86,11 +86,10 @@ class _EmployeeQrState extends State<EmployeeQr> {
                                 name: result!.code.toString(),
                               ),
                             );
-                            Navigator.pushNamed(
+                            Navigator.pushReplacementNamed(
                                 rootNavigatorKey.currentContext!,
                               RoutName.employee,
                               arguments: result!.code.toString()
-
                             );
                           },
                           child: const Text('Регистрироваться',

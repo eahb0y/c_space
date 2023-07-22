@@ -8,9 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'argument/client_argument_info.dart';
 
 class ClientScreen extends StatefulWidget {
+  final String name;
 
   const ClientScreen({
     super.key,
+    required this.name,
   });
 
   @override
@@ -18,8 +20,15 @@ class ClientScreen extends StatefulWidget {
 }
 
 class _ClientScreenState extends State<ClientScreen> {
-
-
+  @override
+  void initState() {
+    super.initState();
+    context.read<ClientGetTimeBloc>().add(
+      ClientGetTime(
+        name: widget.name,
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ClientGetTimeBloc, ClientGetTimeState>(
@@ -116,18 +125,10 @@ class _ClientScreenState extends State<ClientScreen> {
                 backgroundColor: Colors.purple
               ),
               onPressed: () {
-                Navigator.pushNamed(
+                Navigator.pushReplacementNamed(
                   rootNavigatorKey.currentContext!,
                   RoutName.clientQr,
-                ).then((value) {
-                  if(value is String ){
-                    context.read<ClientGetTimeBloc>().add(
-                      ClientGetTime(
-                        name: value,
-                      ),
-                    );
-                  }
-                });
+                );
               },
               child: const Text('Регистрировать'),
             ),

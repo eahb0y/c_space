@@ -63,7 +63,7 @@ class _EmployeePageState extends State<EmployeePage> {
               style: ElevatedButton.styleFrom(
                   minimumSize: Size(150, 45), backgroundColor: Colors.purple),
               onPressed: () {
-                Navigator.pushNamed(
+                Navigator.pushReplacementNamed(
                   rootNavigatorKey.currentContext!,
                   RoutName.employeeQr,
                 );

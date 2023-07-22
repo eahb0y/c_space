@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:c_space/feature/client/presintation/bloc/client_set_time_bloc/client_set_time_bloc.dart';
+import 'package:c_space/router/rout.dart';
+import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -85,9 +87,10 @@ class _ClientQrState extends State<ClientQr> {
                                 name: result!.code.toString(),
                               ),
                             );
-                            Navigator.pop(
-                              context,
-                              result!.code.toString()
+                            Navigator.pushReplacementNamed(
+                              rootNavigatorKey.currentContext!,
+                              RoutName.client,
+                              arguments: result!.code.toString(),
                             );
                           },
                           child: const Text('Регистрироваться',
