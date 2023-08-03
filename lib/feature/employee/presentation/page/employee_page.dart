@@ -43,7 +43,7 @@ class _EmployeePageState extends State<EmployeePage> {
                     16.0,
                   ),
                   child: Text(
-                    state.employeeName,
+                    state.employeeName ?? '',
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 30,
@@ -51,9 +51,10 @@ class _EmployeePageState extends State<EmployeePage> {
                   ),
                 ),
               ),
+              (state.checkIn?.isEmpty ?? '') == '' ? Center(child: CircularProgressIndicator(),) :
               EmployeeScreenWidget(
-                checkIn: state.checkIn,
-                checkOut: state.checkOut ?? '12',
+                checkIn: state.timeModel?.checkIn ?? '',
+                checkOut: state.timeModel?.checkOut ?? '',
               )
             ],
           ),

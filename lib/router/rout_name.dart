@@ -8,4 +8,5 @@ class RoutName{
   static const employee = '/employee';
   static const employeeQr = '/employeeQr';
   static const timeTracker = '/timeTracker';
+  static const issue = '/issue';
 }

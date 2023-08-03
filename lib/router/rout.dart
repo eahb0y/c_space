@@ -9,6 +9,7 @@ import 'package:c_space/feature/employee/presentation/bloc/employee_get_time_blo
 import 'package:c_space/feature/employee/presentation/bloc/employee_set_time_bloc/employee_set_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/page/employee_page.dart';
 import 'package:c_space/feature/employee/presentation/page/widget/employee_qr.dart';
+import 'package:c_space/feature/issue/presentation/pages/issue_page.dart';
 import 'package:c_space/feature/login/bloc/login_page_bloc.dart';
 import 'package:c_space/feature/login/page/main_screen_widget.dart';
 import 'package:c_space/feature/main/presentation/pages/main_page.dart';
@@ -83,7 +84,7 @@ class Rout {
       case RoutName.employee:
         return MaterialPageRoute(
             builder: (context) => BlocProvider(
-                  create: (context) => EmployeeGetTimeBloc(),
+                  create: (context) => sl<EmployeeGetTimeBloc>(),
                   child: EmployeePage(
                     name: settings.arguments is String
                         ? settings.arguments as String
@@ -104,6 +105,8 @@ class Rout {
         return MaterialPageRoute(builder: (_) => const TimeTrackerPage());
       case RoutName.timeTracker:
         return buildPageWithDefaultTransition(child: TimeTrackerPage());
+      case RoutName.issue:
+        return buildPageWithDefaultTransition(child: IssuePage());
       default:
         return MaterialPageRoute(builder: (_) => const TimeTrackerPage());
     }

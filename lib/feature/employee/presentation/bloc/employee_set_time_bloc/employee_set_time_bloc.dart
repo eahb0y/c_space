@@ -23,7 +23,6 @@ class EmployeeSetTimeBloc
     EmployeeSetTime event,
     Emitter<EmployeeSetTimeState> emit,
   ) async {
-    print("I am setting data to base");
     print(locationNameLocal);
     print("dataaaaaa");
     DocumentSnapshot snap2 = await FirebaseFirestore.instance
@@ -33,6 +32,7 @@ class EmployeeSetTimeBloc
         .doc(currentDay)
         .get();
     try {
+      await Future.delayed(Duration(seconds: 1));
       String snap = snap2['checkIn'];
       await FirebaseFirestore.instance
           .collection(locationNameLocal)

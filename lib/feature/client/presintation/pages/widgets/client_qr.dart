@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class ClientQr extends StatefulWidget {
-
   ClientQr({
     Key? key,
   }) : super(key: key);
@@ -36,117 +35,123 @@ class _ClientQrState extends State<ClientQr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.purple.shade50,
       appBar: AppBar(
         backgroundColor: Colors.purple,
       ),
       body: Column(
-        children: <Widget>[
-          Expanded(flex: 4, child: _buildQrView(context)),
-          Expanded(
-            flex: 1,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  if (result != null)
-                    Text('Имя: ${result!.code}')
-                  else
-                    const Text('Отсканируйте qr-код'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: IconButton(
-                          onPressed: () async {
-                            await controller?.toggleFlash();
-                            setState(() {
-                              isIconOne = !isIconOne;
-                            });
-                          },
-                          icon: isIconOne == true
-                              ? const Icon(Icons.flashlight_on)
-                              : const Icon(Icons.flashlight_off),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+            child: Ink(
+              height: 50,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.purple.shade200,
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Center(
+                child: result != null
+                    ? Text(
+                        'Имя: ${result!.code}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    : const Text(
+                        'Отсканируйте QR-код',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(8),
-                    child: BlocBuilder<ClientSetTimeBloc, ClientSetTimeState>(
-                      builder: (context, state) {
-                        return ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.purple
-                          ),
-                          onPressed: () {
-                            context.read<ClientSetTimeBloc>().add(
-                              SetClientTime(
-                                name: result!.code.toString(),
-                              ),
-                            );
-                            Navigator.pushReplacementNamed(
-                              rootNavigatorKey.currentContext!,
-                              RoutName.client,
-                              arguments: result!.code.toString(),
-                            );
-                          },
-                          child: const Text('Регистрироваться',
-                              style: TextStyle(fontSize: 20)),
-                        );
-                      },
-                    ),
-                  ),
-                ],
               ),
+              //${result!.code}
             ),
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   children: <Widget>[
-          //     Container(
-          //       margin: const EdgeInsets.all(8),
-          //       child: ElevatedButton(
-          //         onPressed: () async {
-          //           await controller?.pauseCamera();
-          //         },
-          //         child: const Text('pause',
-          //             style: TextStyle(fontSize: 20)),
-          //       ),
-          //     ),
-          //     Container(
-          //       margin: const EdgeInsets.all(8),
-          //       child: ElevatedButton(
-          //         onPressed: () async {
-          //           await controller?.resumeCamera();
-          //         },
-          //         child: const Text('resume',
-          //             style: TextStyle(fontSize: 20)),
-          //       ),
-          //     )
-          //   ],
-          // ),
+          Ink(
+            height: 350,
+            width: 350,
+            child: _buildQrView(context),
+          ),
         ],
+      ),
+      floatingActionButton: Ink(
+        height: 70,
+        width: 70,
+        child: FloatingActionButton(
+          onPressed: () {
+            context.read<ClientSetTimeBloc>().add(
+                  SetClientTime(
+                    name: result!.code.toString(),
+                  ),
+                );
+            Navigator.pushReplacementNamed(
+              rootNavigatorKey.currentContext!,
+              RoutName.client,
+              arguments: result!.code.toString(),
+            );
+          },
+          backgroundColor: Colors.purple.shade500,
+          child: Icon(Icons.qr_code),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.purple.shade500,
+        shape: CircularNotchedRectangle(),
+        height: 70,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 50),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              MaterialButton(
+                onPressed: () {},
+                minWidth: 40,
+                child: IconButton(
+                  onPressed: () async {
+                    await controller?.toggleFlash();
+                    setState(() {
+                      isIconOne = !isIconOne;
+                    });
+                  },
+                  icon: isIconOne == true
+                      ? const Icon(
+                          Icons.flashlight_on,
+                          color: Colors.white,
+                        )
+                      : const Icon(
+                          Icons.flashlight_off,
+                          color: Colors.white,
+                        ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildQrView(BuildContext context) {
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
-        MediaQuery.of(context).size.height < 400)
-        ? 250.0
+            MediaQuery.of(context).size.height < 400)
+        ? 350.0
         : 300.0;
     return QRView(
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
-          borderColor: Colors.red,
           borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
+          borderColor: Colors.purple,
+          borderLength: 40,
+          borderWidth: 5,
+          overlayColor: Colors.purple.shade50,
           cutOutSize: scanArea),
       onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, true),
     );

@@ -17,8 +17,6 @@ class ClientSetTimeBloc extends Bloc<ClientSetTimeEvent, ClientSetTimeState> {
 
 
   Future<void> _setClient(SetClientTime event, Emitter<ClientSetTimeState> emit) async {
-    print(locationNameLocal);
-    print("dataaaaaa");
     DocumentSnapshot snap2 = await FirebaseFirestore.instance
         .collection(locationNameLocal)
         .doc('100 hour')

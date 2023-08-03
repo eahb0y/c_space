@@ -18,12 +18,14 @@ class _TimeTrackerPageState extends State<TimeTrackerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Time tracker'),
+        title: Text('Трекер времени'),
+        backgroundColor: Colors.purple.shade400,
+        toolbarHeight: 70,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50),
+        padding: const EdgeInsets.symmetric(vertical: 30),
         child: Row(
-          mainAxisAlignment:  MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             MultiBlocProvider(
               providers: [
@@ -43,14 +45,21 @@ class _TimeTrackerPageState extends State<TimeTrackerPage> {
                   height: 150,
                   width: 150,
                   decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.purple.shade500,
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Icon(Icons.person, size: 100,),
-                      Text('Employee'),
+                      Icon(
+                        Icons.work,
+                        size: 100,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        'Работник',
+                        style: TextStyle(color: Colors.white, fontSize: 26),
+                      ),
                     ],
                   ),
                 ),
@@ -69,14 +78,21 @@ class _TimeTrackerPageState extends State<TimeTrackerPage> {
                 height: 150,
                 width: 150,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.purple.shade500,
+                  borderRadius: BorderRadius.circular(20),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Icon(Icons.person, size: 100,),
-                    Text('Client'),
+                    Icon(
+                      Icons.person,
+                      size: 100,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      'Клиент',
+                      style: TextStyle(color: Colors.white, fontSize: 26),
+                    ),
                   ],
                 ),
               ),
