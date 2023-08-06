@@ -22,10 +22,10 @@ class _EmployeePageState extends State<EmployeePage> {
   void initState() {
     super.initState();
     context.read<EmployeeGetTimeBloc>().add(
-      EmployeeGetTime(
-        name: widget.name,
-      ),
-    );
+          EmployeeGetTime(
+            name: widget.name,
+          ),
+        );
   }
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,15 @@ class _EmployeePageState extends State<EmployeePage> {
       builder: (context, state) {
         return Scaffold(
           body: Center(
-            child: Lottie.network('https://asset-cdn.lottiefiles'),
+            child: SizedBox(
+              height: 250,
+              width: 250,
+              child: Lottie.asset(
+                'assets/animation/check_animation.json',
+                repeat: false,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           bottomNavigationBar: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
@@ -43,10 +51,10 @@ class _EmployeePageState extends State<EmployeePage> {
               onPressed: () {
                 Navigator.pushReplacementNamed(
                   rootNavigatorKey.currentContext!,
-                  RoutName.employeeQr,
+                  RoutName.timeTracker,
                 );
               },
-              child: const Text('Регистрировать'),
+              child: const Text('Назад'),
             ),
           ),
         );

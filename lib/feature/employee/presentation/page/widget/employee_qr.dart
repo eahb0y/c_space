@@ -6,6 +6,7 @@ import 'package:c_space/router/rout.dart';
 import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class EmployeeQr extends StatefulWidget {
@@ -34,6 +35,7 @@ class _EmployeeQrState extends State<EmployeeQr> {
 
   @override
   Widget build(BuildContext context) {
+    String currentTime = DateFormat('HH:mm').format(DateTime.now());
     return Scaffold(
       backgroundColor: Colors.purple.shade50,
       appBar: AppBar(
@@ -89,6 +91,7 @@ class _EmployeeQrState extends State<EmployeeQr> {
           onPressed: () {
             context.read<EmployeeSetTimeBloc>().add(
                   EmployeeSetTime(
+                    time: currentTime,
                     name: result!.code.toString(),
                   ),
                 );

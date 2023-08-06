@@ -41,7 +41,7 @@ class EmployeeSetTimeBloc
           .doc(Constants.currentDay)
           .update({
         'checkIn': snap,
-        'checkOut': Constants.currentTime,
+        'checkOut': event.time,
       });
     } catch (e) {
       await FirebaseFirestore.instance
@@ -50,7 +50,7 @@ class EmployeeSetTimeBloc
           .collection(event.name)
           .doc(Constants.currentDay)
           .set({
-        'checkIn': Constants.currentTime,
+        'checkIn': event.time,
         'checkOut': "--/--",
       });
     }
