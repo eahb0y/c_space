@@ -1,3 +1,4 @@
+import 'package:c_space/feature/client/data/model/client_get_time_model.dart';
 import 'package:c_space/feature/client/presintation/bloc/client_get_time_bloc/client_bloc.dart';
 import 'package:c_space/feature/client/presintation/bloc/client_set_time_bloc/client_set_time_bloc.dart';
 import 'package:c_space/feature/client/presintation/bloc/time_bloc/time_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:c_space/feature/employee/presentation/bloc/employee_get_time_blo
 import 'package:c_space/feature/employee/presentation/bloc/employee_set_time_bloc/employee_set_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/page/employee_page.dart';
 import 'package:c_space/feature/employee/presentation/page/widget/employee_qr.dart';
+import 'package:c_space/feature/history/presentation/pages/history_page.dart';
 import 'package:c_space/feature/issue/presentation/pages/issue_page.dart';
 import 'package:c_space/feature/login/bloc/login_page_bloc.dart';
 import 'package:c_space/feature/login/page/main_screen_widget.dart';
@@ -20,6 +22,10 @@ import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../feature/history/presentation/bloc/client_bloc/client_bloc.dart';
+import '../feature/history/presentation/pages/widgets/client_history_widget.dart';
+import '../feature/history/presentation/pages/widgets/employee_history_widget.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final shellRootNavigatorKey = GlobalKey<NavigatorState>();
@@ -91,6 +97,17 @@ class Rout {
                         : '',
                   ),
                 ));
+      case RoutName.history:
+        return MaterialPageRoute(builder: (context) => HistoryPage());
+      case RoutName.clientHistory:
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => sl<ClientBloc>(),
+                  child: ClientHistoryWidget(),
+                ));
+      case RoutName.employeeHistory:
+        return MaterialPageRoute(builder: (context) => EmployeeHistoryWidget());
+
       default:
         throw ('The rout does not exist');
     }

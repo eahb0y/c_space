@@ -27,6 +27,7 @@ class _EmployeePageState extends State<EmployeePage> {
           ),
         );
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EmployeeGetTimeBloc, EmployeeGetTimeState>(
@@ -49,10 +50,7 @@ class _EmployeePageState extends State<EmployeePage> {
               style: ElevatedButton.styleFrom(
                   minimumSize: Size(150, 45), backgroundColor: Colors.purple),
               onPressed: () {
-                Navigator.pushReplacementNamed(
-                  rootNavigatorKey.currentContext!,
-                  RoutName.timeTracker,
-                );
+                Navigator.pop(context);
               },
               child: const Text('Назад'),
             ),

@@ -18,10 +18,18 @@ class _TimeTrackerPageState extends State<TimeTrackerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Трекер времени'),
-        backgroundColor: Colors.purple.shade400,
-        toolbarHeight: 70,
-      ),
+          title: Text('Трекер времени'),
+          backgroundColor: Colors.purple.shade400,
+          toolbarHeight: 70,
+          actions: [
+            IconButton(onPressed: (
+                ) {
+              Navigator.pushNamed(rootNavigatorKey.currentContext!, RoutName.history );
+            }, icon: Icon(Icons.history_outlined)),
+            SizedBox(
+              width: 7,
+            ),
+          ]),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30),
         child: Row(

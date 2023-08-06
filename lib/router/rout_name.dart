@@ -9,4 +9,7 @@ class RoutName{
   static const employeeQr = '/employeeQr';
   static const timeTracker = '/timeTracker';
   static const issue = '/issue';
+  static const history = '/history';
+  static const employeeHistory = '/employeeHistory';
+  static const clientHistory = '/clientHistory';
 }

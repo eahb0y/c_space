@@ -10,6 +10,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'core/local_data/local_source.dart';
+import 'feature/history/presentation/bloc/client_bloc/client_bloc.dart';
 import 'feature/issue/presentation/bloc/issue_get/issue_get_bloc.dart';
 import 'feature/login/bloc/login_page_bloc.dart';
 import 'feature/main/presentation/bloc/main_bloc.dart';
@@ -30,6 +31,8 @@ Future<void> init() async {
   sl.registerFactory(() => ClientQr());
   sl.registerFactory(() => EmployeeQr());
   sl.registerFactory(() => IssueGetBloc());
+  sl.registerFactory(() => ClientBloc());
+
 }
 
 Future<void> initHive() async {

@@ -1,5 +1,5 @@
 import 'package:c_space/core/local_data/local_source.dart';
-import 'package:c_space/feature/client/data/model/client_get_time_model.dart';
+import 'package:c_space/feature/time_tracker/data/model/client_get_time_model.dart';
 import 'package:c_space/injection_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';

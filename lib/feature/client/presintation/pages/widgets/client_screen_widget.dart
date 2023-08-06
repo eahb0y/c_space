@@ -1,4 +1,4 @@
-import 'package:c_space/feature/client/data/model/client_get_time_model.dart';
+import 'package:c_space/feature/time_tracker/data/model/client_get_time_model.dart';
 import 'package:flutter/material.dart';
 
 class ClientScreenWidget extends StatelessWidget {
