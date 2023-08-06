@@ -1,4 +1,3 @@
-import 'package:c_space/feature/issue/presentation/bloc/issue_add/issue_add_bloc.dart';
 import 'package:c_space/feature/issue/presentation/bloc/issue_get/issue_get_bloc.dart';
 import 'package:c_space/feature/issue/presentation/pages/widgets/issue_list_widget.dart';
 import 'package:c_space/feature/issue/presentation/pages/widgets/modal_botton_sheet.dart';
@@ -43,10 +42,7 @@ class _IssuePageState extends State<IssuePage> {
                       top: Radius.circular(10),
                     )),
                 builder: (context) {
-                  return BlocProvider(
-                    create: (context) => IssueAddBloc(),
-                    child: ModalBottomSheet(),
-                  );
+                  return ModalBottomSheet();
                 },
               ).then((value) =>
                   context.read<IssueGetBloc>().add(IssueGetEvent())

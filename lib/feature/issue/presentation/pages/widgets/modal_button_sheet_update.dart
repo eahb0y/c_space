@@ -23,7 +23,7 @@ class _ModalButtonSheetUpdateState extends State<ModalButtonSheetUpdate> {
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   TextEditingController controller = TextEditingController();
 
-  String currentState = status[0];
+  String currentState = Constants.status[0];
 
   @override
   void initState() {
@@ -57,7 +57,7 @@ class _ModalButtonSheetUpdateState extends State<ModalButtonSheetUpdate> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Radio(
-                value: status[0],
+                value: Constants.status[0],
                 groupValue: currentState,
                 onChanged: (value) {
                   setState(() {
@@ -70,7 +70,7 @@ class _ModalButtonSheetUpdateState extends State<ModalButtonSheetUpdate> {
                 ),
               ),
               Radio(
-                value: status[1],
+                value: Constants.status[1],
                 groupValue: currentState,
                 onChanged: (value) {
                   setState(() {
@@ -83,7 +83,7 @@ class _ModalButtonSheetUpdateState extends State<ModalButtonSheetUpdate> {
                 ),
               ),
               Radio(
-                value: status[2],
+                value: Constants.status[2],
                 groupValue: currentState,
                 onChanged: (value) {
                   setState(() {

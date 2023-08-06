@@ -21,7 +21,9 @@ class IssueGetBloc extends Bloc<IssueEvent, IssueGetState> {
   IssueGetBloc() : super(IssueGetState(issueModal: [], isLoading: false)) {
     on<IssueGetEvent>(getIssue);
     on<IssueDeleteEvent>(deleteIssue);
-    on<IssueUpdateEvent>(setIssue);
+    on<IssueUpdateEvent>(updateIssue);
+    on<IssueAddEvent>(setIssue);
+    // on<PushNotification>(pushNotificationsAllUsers);
   }
 
   Future<void> getIssue(IssueGetEvent event,
@@ -34,8 +36,6 @@ class IssueGetBloc extends Bloc<IssueEvent, IssueGetState> {
       request.docs.forEach((element) {
         return issueModal.add(IssueGetTimeModel.fromJson(element.data()));
       });
-      print(request);
-      print(issueModal);
       emit(state.copyWith(issueModal: issueModal, isLoading: true));
     } catch (error) {
       print("cause of $error");
@@ -52,7 +52,7 @@ class IssueGetBloc extends Bloc<IssueEvent, IssueGetState> {
         .then((value) => print('This element deleted  ${event.id}'));
   }
 
-  Future<void> setIssue(IssueUpdateEvent event,
+  Future<void> updateIssue(IssueUpdateEvent event,
       Emitter<IssueGetState> emit) async {
     await FirebaseFirestore.instance
         .collection("Issue")
@@ -60,11 +60,46 @@ class IssueGetBloc extends Bloc<IssueEvent, IssueGetState> {
         {
           'issue': event.issue,
           'status': event.status,
-          'date': currentDay,
+          'date': Constants.currentDay,
           'id': event.id,
           'location': locationNameLocal,
           'deadline': event.deadline
         }
     );
   }
+
+  Future<void>  setIssue(IssueAddEvent event, Emitter<IssueGetState> emit) async{
+    await FirebaseFirestore.instance
+        .collection("Issue")
+        .doc(randNum)
+        .set({
+      'issue': event.issue,
+      'status': event.status,
+      'date' : Constants.currentDay,
+      'id' : randNum,
+      'location' : locationNameLocal,
+      'deadline' : event.deadline
+    });
+  }
+
+  // Future<void> pushNotificationsAllUsers(PushNotification event, Emitter<IssueGetState> emit) async {
+  //
+  //   String dataNotifications = '{ '
+  //       ' "to" : "/topics/myTopic1" , '
+  //       ' "notification" : {'
+  //       ' "title":"${event.status}" , '
+  //       ' "body":"${event.issue}" '
+  //       ' } '
+  //       ' } ';
+  //
+  //   var response = await http.post(
+  //     Uri.parse(Constants.BASE_URL),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json',
+  //       'Authorization': 'key= ${Constants.KEY_SERVER}',
+  //     },
+  //     body: dataNotifications,
+  //   );
+  //   print(response.body.toString());
+  // }
 }

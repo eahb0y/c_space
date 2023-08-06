@@ -39,3 +39,35 @@ class IssueUpdateEvent extends IssueEvent {
         status,
       ];
 }
+
+class IssueAddEvent extends IssueEvent {
+  final String issue;
+  final String status;
+  final String deadline;
+
+  IssueAddEvent({
+    required this.status,
+    required this.issue,
+    required this.deadline,
+  });
+
+  @override
+  List<Object?> get props => [
+        status,
+        issue,
+        deadline,
+      ];
+}
+
+class PushNotification extends IssueEvent {
+  final String issue;
+  final String status;
+
+  PushNotification({
+    required this.issue,
+    required this.status,
+  });
+
+  @override
+  List<Object?> get props => [issue, status];
+}

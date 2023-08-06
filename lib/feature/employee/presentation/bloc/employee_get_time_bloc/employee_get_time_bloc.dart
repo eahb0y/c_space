@@ -19,8 +19,8 @@ class EmployeeGetTimeBloc
 
   EmployeeGetTimeBloc()
       : super(EmployeeGetTimeState(
-      checkIn: '--/--',
-      checkOut: '--/--',
+      // checkIn: '--/--',
+      // checkOut: '--/--',
       employeeName: 'Работник',
       timeModel: null)) {
     on<EmployeeGetTime>(_getEmployee);
@@ -29,6 +29,8 @@ class EmployeeGetTimeBloc
   Future<void> _getEmployee(EmployeeGetTime event,
       Emitter<EmployeeGetTimeState> emit,) async {
     await Future.delayed(Duration(seconds: 1));
+    List<EmployeeGetTimeModel> employeeDate = [];
+
     print(event.name);
     try {
       await Future.delayed(Duration(seconds: 1));
@@ -36,17 +38,18 @@ class EmployeeGetTimeBloc
           .collection(locationNameLocal)
           .doc('employee')
           .collection(event.name)
-          .doc(currentDay)
+          .doc(Constants.currentDay)
           .get()
           .then((value) async {
         await Future.delayed(Duration(seconds: 1));
         if (value.exists) {
+          employeeDate.add(EmployeeGetTimeModel.fromJson(value));
           return emit(
             state.copyWith(
-                checkIn: value['checkIn'],
-                checkOut: value['checkOut'],
+                // checkIn: value['checkIn'],
+                // checkOut: value['checkOut'],
                 employeeName: event.name,
-                timeModel: EmployeeGetTimeModel.fromJson(value)
+                timeModel: employeeDate
             ),
 
           );
@@ -62,7 +65,7 @@ class EmployeeGetTimeBloc
           .collection(locationNameLocal)
           .doc('employee')
           .collection(event.name)
-          .doc(currentDay)
+          .doc(Constants.currentDay)
           .get()
           .then((value) async {
         await Future.delayed(Duration(seconds: 1));
@@ -70,7 +73,7 @@ class EmployeeGetTimeBloc
           return emit(
             state.copyWith(
                 employeeName: event.name,
-                timeModel: EmployeeGetTimeModel.fromJson(value)
+                timeModel: employeeDate
             ),
 
           );

@@ -6,7 +6,6 @@ import 'package:c_space/feature/client/presintation/pages/widgets/client_qr.dart
 import 'package:c_space/feature/employee/presentation/bloc/employee_get_time_bloc/employee_get_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/bloc/employee_set_time_bloc/employee_set_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/page/widget/employee_qr.dart';
-import 'package:c_space/feature/issue/presentation/bloc/issue_add/issue_add_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
@@ -30,7 +29,6 @@ Future<void> init() async {
   sl.registerLazySingleton<MainBloc>(() => MainBloc());
   sl.registerFactory(() => ClientQr());
   sl.registerFactory(() => EmployeeQr());
-  sl.registerFactory(() => IssueAddBloc());
   sl.registerFactory(() => IssueGetBloc());
 }
 

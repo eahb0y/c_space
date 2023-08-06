@@ -1,9 +1,9 @@
 import 'package:c_space/feature/employee/presentation/bloc/employee_get_time_bloc/employee_get_time_bloc.dart';
-import 'package:c_space/feature/employee/presentation/page/widget/employee_screen_widget.dart';
 import 'package:c_space/router/rout.dart';
 import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 
 class EmployeePage extends StatefulWidget {
   final String name;
@@ -32,31 +32,8 @@ class _EmployeePageState extends State<EmployeePage> {
     return BlocBuilder<EmployeeGetTimeBloc, EmployeeGetTimeState>(
       builder: (context, state) {
         return Scaffold(
-          body: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                expandedHeight: 150,
-                pinned: true,
-                backgroundColor: Colors.purple,
-                title: Padding(
-                  padding: const EdgeInsets.all(
-                    16.0,
-                  ),
-                  child: Text(
-                    state.employeeName ?? '',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 30,
-                    ),
-                  ),
-                ),
-              ),
-              (state.checkIn?.isEmpty ?? '') == '' ? Center(child: CircularProgressIndicator(),) :
-              EmployeeScreenWidget(
-                checkIn: state.timeModel?.checkIn ?? '',
-                checkOut: state.timeModel?.checkOut ?? '',
-              )
-            ],
+          body: Center(
+            child: Lottie.network('https://asset-cdn.lottiefiles'),
           ),
           bottomNavigationBar: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),

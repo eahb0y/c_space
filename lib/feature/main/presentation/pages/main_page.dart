@@ -1,6 +1,5 @@
 import 'package:c_space/feature/client/presintation/bloc/client_get_time_bloc/client_bloc.dart';
 import 'package:c_space/feature/client/presintation/bloc/client_set_time_bloc/client_set_time_bloc.dart';
-import 'package:c_space/feature/employee/presentation/bloc/employee_get_time_bloc/employee_get_time_bloc.dart';
 import 'package:c_space/feature/issue/presentation/bloc/issue_get/issue_get_bloc.dart';
 import 'package:c_space/feature/main/presentation/bloc/main_bloc.dart';
 import 'package:c_space/injection_container.dart';
@@ -9,7 +8,6 @@ import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../employee/presentation/bloc/employee_set_time_bloc/employee_set_time_bloc.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key, this.initialRoute});

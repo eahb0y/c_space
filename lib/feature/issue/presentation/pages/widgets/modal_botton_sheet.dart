@@ -1,5 +1,5 @@
 import 'package:c_space/constants.dart';
-import 'package:c_space/feature/issue/presentation/bloc/issue_add/issue_add_bloc.dart';
+import 'package:c_space/feature/issue/presentation/bloc/issue_get/issue_get_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +15,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
   DateTime dataTime =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   TextEditingController controller = TextEditingController();
-  String currentState = status[0];
+  String currentState = Constants.status[0];
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Radio(
-                value: status[0],
+                value: Constants.status[0],
                 groupValue: currentState,
                 onChanged: (value) {
                   setState(() {
@@ -57,7 +57,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                 ),
               ),
               Radio(
-                value: status[1],
+                value: Constants.status[1],
                 groupValue: currentState,
                 onChanged: (value) {
                   setState(() {
@@ -70,7 +70,7 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                 ),
               ),
               Radio(
-                value: status[2],
+                value: Constants.status[2],
                 groupValue: currentState,
                 onChanged: (value) {
                   setState(() {
@@ -115,33 +115,32 @@ class _ModalBottomSheetState extends State<ModalBottomSheet> {
                       ),
                     );
                   },
-                  child:
-                      Text('${dataTime.year}-${dataTime.month}-${dataTime.day}',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.purple,
-                            fontWeight: FontWeight.w700
-                          )),
+                  child: Text(
+                      '${dataTime.year}-${dataTime.month}-${dataTime.day}',
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.purple,
+                          fontWeight: FontWeight.w700)),
                 ),
               ],
             ),
           ),
-          BlocBuilder<IssueAddBloc, IssueAddState>(
+          BlocBuilder<IssueGetBloc, IssueGetState>(
             builder: (context, state) {
               return ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    minimumSize: Size(250, 45),
-                    backgroundColor: Colors.purple),
+                    minimumSize: Size(250, 45), backgroundColor: Colors.purple),
                 onPressed: () {
                   Navigator.pop(context);
-                  context.read<IssueAddBloc>().add(
-                        IssueAddEvent(
-                          status: currentState,
-                          issue: controller.text,
-                          deadline:
-                              '${dataTime.year}-${dataTime.month}-${dataTime.day}',
-                        ),
-                      );
+                  context.read<IssueGetBloc>().add(IssueAddEvent(
+                        status: currentState,
+                        issue: controller.text,
+                        deadline: '${dataTime.year}-${dataTime.month}-${dataTime.day}',
+                      ));
+                  // context.read<IssueGetBloc>().add(PushNotification(
+                  //   status: currentState,
+                  //   issue: controller.text,
+                  // ));
                 },
                 child: Text(
                   'Add issue',

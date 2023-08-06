@@ -86,7 +86,7 @@ class IssueListWidget extends StatelessWidget {
                                       .read<IssueGetBloc>()
                                       .add(IssueGetEvent());
                                 },
-                                child: Text('Удалит'),
+                                child: Text('Удалить'),
                               ),
                             ),
                           )

@@ -29,7 +29,7 @@ class EmployeeSetTimeBloc
         .collection(locationNameLocal)
         .doc('employee')
         .collection(event.name)
-        .doc(currentDay)
+        .doc(Constants.currentDay)
         .get();
     try {
       await Future.delayed(Duration(seconds: 1));
@@ -38,19 +38,19 @@ class EmployeeSetTimeBloc
           .collection(locationNameLocal)
           .doc('employee')
           .collection(event.name)
-          .doc(currentDay)
+          .doc(Constants.currentDay)
           .update({
         'checkIn': snap,
-        'checkOut': currentTime,
+        'checkOut': Constants.currentTime,
       });
     } catch (e) {
       await FirebaseFirestore.instance
           .collection(locationNameLocal)
           .doc('employee')
           .collection(event.name)
-          .doc(currentDay)
+          .doc(Constants.currentDay)
           .set({
-        'checkIn': currentTime,
+        'checkIn': Constants.currentTime,
         'checkOut': "--/--",
       });
     }

@@ -21,7 +21,7 @@ class ClientSetTimeBloc extends Bloc<ClientSetTimeEvent, ClientSetTimeState> {
         .collection(locationNameLocal)
         .doc('100 hour')
         .collection(event.name)
-        .doc(currentDay)
+        .doc(Constants.currentDay)
         .get();
     try {
       String snap = snap2['checkIn'];
@@ -29,19 +29,19 @@ class ClientSetTimeBloc extends Bloc<ClientSetTimeEvent, ClientSetTimeState> {
           .collection(locationNameLocal)
           .doc('100 hour')
           .collection(event.name)
-          .doc(currentDay)
+          .doc(Constants.currentDay)
           .update({
         'checkIn': snap,
-        'checkOut': currentTime,
+        'checkOut': Constants.currentTime,
       });
     } catch (e) {
       await FirebaseFirestore.instance
           .collection(locationNameLocal)
           .doc('100 hour')
           .collection(event.name)
-          .doc(currentDay)
+          .doc(Constants.currentDay)
           .set({
-        'checkIn': currentTime,
+        'checkIn': Constants.currentTime,
         'checkOut': "--/--",
       });
     }

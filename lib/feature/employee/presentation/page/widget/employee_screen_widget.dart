@@ -1,13 +1,12 @@
+import 'package:c_space/feature/employee/data/model/employee_get_time_modal.dart';
 import 'package:flutter/material.dart';
 
 class EmployeeScreenWidget extends StatelessWidget {
-  final String checkIn;
-  final String checkOut;
+final List<EmployeeGetTimeModel>? timeModel;
 
   const EmployeeScreenWidget({
     super.key,
-    required this.checkIn,
-    required this.checkOut,
+    required this.timeModel
   });
 
   @override
@@ -46,26 +45,29 @@ class EmployeeScreenWidget extends StatelessWidget {
                   SizedBox(
                     height: 25,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          checkIn,
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white70,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          checkOut,
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white70,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ],
+                  ListView.builder(
+                    itemBuilder: (_, index)=>
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            timeModel?[index].checkIn ?? '---',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white70,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            timeModel?[index].checkOut ?? '---',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white70,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

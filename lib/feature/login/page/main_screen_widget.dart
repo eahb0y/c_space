@@ -70,12 +70,12 @@ class _LoginPageState extends State<LoginPage> {
                     underline: const SizedBox(),
                     isExpanded: true,
                     value: value,
-                    items: locationsList.map(buildItem).toList(),
+                    items: Constants.locationsList.map(buildItem).toList(),
                     onChanged: (value) {
                       setState(() {
                         this.value = value!;
                       });
-                      if (locationsList.contains(value)) {
+                      if (Constants.locationsList.contains(value)) {
                         setState(() {
                           isSelected = true;
                         });
