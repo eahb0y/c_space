@@ -15,7 +15,6 @@ class ClientHistoryWidget extends StatefulWidget {
 }
 
 class _ClientHistoryWidgetState extends State<ClientHistoryWidget> {
-  late String name;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ClientBloc, ClientState>(
@@ -26,15 +25,13 @@ class _ClientHistoryWidgetState extends State<ClientHistoryWidget> {
             padding: const EdgeInsets.all(8.0),
             child: ListView.separated(
                 itemBuilder: (_, index) {
+                  String name = sl<LocalClientSource>().box.getAt(index);
                   return Card(
                     child: ListTile(
                       title: Text(
-                        sl<LocalClientSource>().box.getAt(index),
+                        name,
                       ),
                       onTap: () {
-                        setState(() {
-                          name = sl<LocalClientSource>().box.getAt(index);
-                        });
                         context
                             .read<ClientBloc>()
                             .add(ClientGetTime(name: name));
@@ -55,7 +52,7 @@ class _ClientHistoryWidgetState extends State<ClientHistoryWidget> {
                 separatorBuilder: (_, __) => SizedBox(
                       height: 5,
                     ),
-                itemCount: sl<LocalClientSource>().box.length),
+                itemCount: sl<LocalClientSource>().box.length,),
           ),
         );
       },
