@@ -11,6 +11,15 @@ class HistoryListWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(listArguments?.name ?? ''),
+        actions: [
+          SizedBox(
+            height: 20,
+            width: 20,
+          ),
+          Text('${listArguments?.time ?? ' '}')]
+        ,
+        backgroundColor: Colors.purple,
+
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -21,11 +30,17 @@ class HistoryListWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text('Дата'),
+                    Text('Дата', style: TextStyle(
+                      fontSize: 20
+                    ),),
                     SizedBox(),
-                    Text('Пришел'),
+                    Text('Пришел', style: TextStyle(
+                        fontSize: 20
+                    ),),
                     SizedBox(),
-                    Text('Ушел'),
+                    Text('Ушел', style: TextStyle(
+                        fontSize: 20
+                    ),),
                   ],
                 ),
                 SizedBox(

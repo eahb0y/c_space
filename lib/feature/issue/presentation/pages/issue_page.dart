@@ -25,12 +25,17 @@ class _IssuePageState extends State<IssuePage> {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.purple,
-
             title: Text('Issue list'),
           ),
-          body: (state.issueModal?.length ?? 0) > 0 ? IssueListWidget(
-            issueModal: state.issueModal,
-          ) : Center(child: CircularProgressIndicator(backgroundColor: Colors.purple, color: Colors.purple.shade100,)),
+          body: (state.issueModal?.length ?? 0) > 0
+              ? IssueListWidget(
+                  issueModal: state.issueModal,
+                )
+              : Center(
+                  child: CircularProgressIndicator(
+                  backgroundColor: Colors.purple,
+                  color: Colors.purple.shade100,
+                )),
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add),
             backgroundColor: Colors.purple,
@@ -39,14 +44,13 @@ class _IssuePageState extends State<IssuePage> {
                 context: context,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(10),
-                    )),
+                  top: Radius.circular(10),
+                )),
                 builder: (context) {
                   return ModalBottomSheet();
                 },
-              ).then((value) =>
-                  context.read<IssueGetBloc>().add(IssueGetEvent())
-              );
+              ).then(
+                  (value) => context.read<IssueGetBloc>().add(IssueGetEvent()));
             },
           ),
         );

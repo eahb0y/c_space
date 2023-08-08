@@ -1,8 +1,5 @@
 import 'package:c_space/feature/client/presintation/bloc/client_set_time_bloc/client_set_time_bloc.dart';
-import 'package:c_space/feature/client/presintation/bloc/time_bloc/time_bloc.dart';
-import 'package:c_space/feature/client/presintation/pages/argument/client_argument_info.dart';
 import 'package:c_space/feature/client/presintation/pages/client_screen.dart';
-import 'package:c_space/feature/client/presintation/pages/widgets/client_info_screen.dart';
 import 'package:c_space/feature/client/presintation/pages/widgets/client_qr.dart';
 import 'package:c_space/feature/employee/presentation/bloc/employee_set_time_bloc/employee_set_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/page/employee_page.dart';
@@ -73,15 +70,6 @@ class Rout {
                   name: settings.arguments is String
                       ? settings.arguments as String
                       : '',
-                ));
-      case RoutName.clientInfo:
-        return MaterialPageRoute(
-            builder: (context) => BlocProvider(
-                  create: (context) => TimeBloc(),
-                  child: ClientInfoScreen(
-                      argument: settings.arguments is ClientInfoArgument
-                          ? settings.arguments as ClientInfoArgument
-                          : null),
                 ));
       case RoutName.employee:
         return MaterialPageRoute(builder: (context) => EmployeePage());

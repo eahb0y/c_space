@@ -1,9 +1,6 @@
 import 'package:c_space/core/local_data/local_source.dart';
-import 'package:c_space/feature/history/presentation/arguments/history_list_arguments.dart';
 import 'package:c_space/feature/history/presentation/bloc/client_bloc/client_bloc.dart';
 import 'package:c_space/injection_container.dart';
-import 'package:c_space/router/rout.dart';
-import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +17,9 @@ class _ClientHistoryWidgetState extends State<ClientHistoryWidget> {
     return BlocBuilder<ClientBloc, ClientState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            backgroundColor: Colors.purple,
+          ),
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListView.separated(
@@ -35,16 +34,10 @@ class _ClientHistoryWidgetState extends State<ClientHistoryWidget> {
                         context
                             .read<ClientBloc>()
                             .add(ClientGetTime(name: name));
-                        Navigator.pushNamed(
-                          rootNavigatorKey.currentContext!,
-                          RoutName.historyList,
-                          arguments: HistoryListArguments(
-                            date: state.clientData[index].date,
-                            checkIn: state.clientData[index].checkIn,
-                            checkOut: state.clientData[index].checkOut,
-                            name: state.clientData[index].name,
-                          ),
-                        );
+
+                        context
+                            .read<ClientBloc>()
+                            .add(ClientTotalTime(clientDate: state.clientData));
                       },
                     ),
                   );

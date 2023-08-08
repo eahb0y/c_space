@@ -19,3 +19,11 @@ class EmployeeGetTime extends ClientEvent {
   @override
   List<Object?> get props => [name];
 }
+
+class ClientTotalTime extends ClientEvent{
+  final List<ClientModel> clientDate;
+  ClientTotalTime({required this.clientDate});
+
+  @override
+  List<Object?> get props => [clientDate];
+}

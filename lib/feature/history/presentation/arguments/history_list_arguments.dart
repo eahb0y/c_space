@@ -3,8 +3,9 @@ class HistoryListArguments {
   final String checkIn;
   final String checkOut;
   final String name;
+  final int? time;
 
-  HistoryListArguments({
+  HistoryListArguments(this.time, {
     required this.date,
     required this.checkIn,
     required this.checkOut,
