@@ -1,8 +1,6 @@
-import 'package:c_space/feature/history/presentation/bloc/client_bloc/client_bloc.dart';
 import 'package:c_space/router/rout.dart';
 import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
@@ -19,7 +17,7 @@ class HistoryPage extends StatelessWidget {
               child: ListTile(
                 title: Text("Работник"),
                 onTap: () {
-                  Navigator.pushReplacementNamed(
+                  Navigator.pushNamed(
                     rootNavigatorKey.currentContext!,
                     RoutName.employeeHistory,
                   );
@@ -27,19 +25,16 @@ class HistoryPage extends StatelessWidget {
                 trailing: Icon(Icons.chevron_right_outlined),
               ),
             ),
-            BlocProvider(
-              create: (context) => ClientBloc(),
-              child: Card(
-                child: ListTile(
-                  title: Text("Клиент"),
-                  onTap: () {
-                    Navigator.pushReplacementNamed(
-                      rootNavigatorKey.currentContext!,
-                      RoutName.clientHistory,
-                    );
-                  },
-                  trailing: Icon(Icons.chevron_right_outlined),
-                ),
+            Card(
+              child: ListTile(
+                title: Text("Клиент"),
+                onTap: () {
+                  Navigator.pushNamed(
+                    rootNavigatorKey.currentContext!,
+                    RoutName.clientHistory,
+                  );
+                },
+                trailing: Icon(Icons.chevron_right_outlined),
               ),
             ),
           ],

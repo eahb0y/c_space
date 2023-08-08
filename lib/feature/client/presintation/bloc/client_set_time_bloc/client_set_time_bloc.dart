@@ -15,45 +15,49 @@ class ClientSetTimeBloc extends Bloc<ClientSetTimeEvent, ClientSetTimeState> {
   String locationNameLocal = sl<LocalSource>().getLocation();
   String randNum = (Random().nextInt(900000) + 100000).toString();
 
-
   ClientSetTimeBloc() : super(ClientSetTimeState()) {
     on<SetClientTime>(_setClient);
   }
 
-
-  Future<void> _setClient(SetClientTime event,
-      Emitter<ClientSetTimeState> emit) async {
+  Future<void> _setClient(
+    SetClientTime event,
+    Emitter<ClientSetTimeState> emit,
+  ) async {
+    print(locationNameLocal);
     DocumentSnapshot snap2 = await FirebaseFirestore.instance
         .collection(locationNameLocal)
-        .doc(randNum)
+        .doc('100 hour')
+        .collection(event.name)
+        .doc(Constants.currentDay)
         .get();
     try {
       String checkIn = snap2['checkIn'];
       String date = snap2['date'];
-      String name = snap2['name'];
-      String id = snap2['id'];
 
       await FirebaseFirestore.instance
           .collection(locationNameLocal)
-          .doc(randNum)
+          .doc('100 hour')
+          .collection(event.name)
+          .doc(Constants.currentDay)
           .update({
         'checkIn': checkIn,
         'checkOut': event.time,
         'date': date,
-        'name': name,
-        'id': id
+        'name': event.name
       });
     } catch (e) {
       await FirebaseFirestore.instance
           .collection(locationNameLocal)
-          .doc(randNum)
+          .doc('100 hour')
+          .collection(event.name)
+          .doc(Constants.currentDay)
           .set({
         'checkIn': event.time,
         'checkOut': "--/--",
         'date': Constants.currentDay,
-        'name': event.name,
-        'id': randNum
+        'name': event.name
       });
     }
+    sl<LocalClientSource>().setClient(event.name);
   }
 }

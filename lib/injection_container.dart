@@ -1,9 +1,7 @@
 import 'dart:io';
-import 'package:c_space/feature/client/presintation/bloc/client_get_time_bloc/client_bloc.dart';
 import 'package:c_space/feature/client/presintation/bloc/client_set_time_bloc/client_set_time_bloc.dart';
 import 'package:c_space/feature/client/presintation/bloc/time_bloc/time_bloc.dart';
 import 'package:c_space/feature/client/presintation/pages/widgets/client_qr.dart';
-import 'package:c_space/feature/employee/presentation/bloc/employee_get_time_bloc/employee_get_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/bloc/employee_set_time_bloc/employee_set_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/page/widget/employee_qr.dart';
 import 'package:get_it/get_it.dart';
@@ -17,14 +15,16 @@ import 'feature/main/presentation/bloc/main_bloc.dart';
 
 final sl = GetIt.instance;
 late Box<dynamic> _box;
+late Box<dynamic> _clientBox;
+late Box<dynamic> _employeeBox;
 
 Future<void> init() async {
   await initHive();
   sl.registerSingleton<LocalSource>(LocalSource(_box));
-  sl.registerFactory(() => ClientGetTimeBloc());
+  sl.registerSingleton<LocalClientSource>(LocalClientSource(_clientBox));
+  sl.registerSingleton<LocalEmployeeSource>(LocalEmployeeSource(_employeeBox));
   sl.registerFactory(() => ClientSetTimeBloc());
   sl.registerFactory(() => EmployeeSetTimeBloc());
-  sl.registerFactory(() => EmployeeGetTimeBloc());
   sl.registerFactory(() => LoginPageBloc());
   sl.registerFactory(() => TimeBloc());
   sl.registerLazySingleton<MainBloc>(() => MainBloc());
@@ -37,7 +37,11 @@ Future<void> init() async {
 
 Future<void> initHive() async {
   const boxName = 'location_box';
+  const clientBox = 'client_box';
+  const employeeBox = 'employee_box';
   Directory directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
   _box = await Hive.openBox<dynamic>(boxName);
+  _clientBox = await Hive.openBox<dynamic>(clientBox);
+  _employeeBox = await Hive.openBox<dynamic>(employeeBox);
 }

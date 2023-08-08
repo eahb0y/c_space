@@ -6,8 +6,8 @@ class SetClientTime extends ClientSetTimeEvent {
   final String time;
   final String name;
 
-  SetClientTime({required this.name, required this.time});
+  SetClientTime({required this.name, required this.time, });
 
   @override
-  List<Object?> get props => [name, time];
+  List<Object?> get props => [name, time, ];
 }

@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:c_space/constants.dart';
-import 'package:c_space/feature/time_tracker/data/model/client_get_time_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:intl/intl.dart';
+
+import '../../../../history/data/model/client_get_time_model.dart';
 
 part 'time_event.dart';
 

@@ -1,4 +1,3 @@
-import 'package:c_space/feature/employee/presentation/bloc/employee_get_time_bloc/employee_get_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/bloc/employee_set_time_bloc/employee_set_time_bloc.dart';
 import 'package:c_space/injection_container.dart';
 import 'package:c_space/router/rout.dart';
@@ -6,14 +5,9 @@ import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class TimeTrackerPage extends StatefulWidget {
+class TimeTrackerPage extends StatelessWidget {
   const TimeTrackerPage({super.key});
 
-  @override
-  State<TimeTrackerPage> createState() => _TimeTrackerPageState();
-}
-
-class _TimeTrackerPageState extends State<TimeTrackerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +32,6 @@ class _TimeTrackerPageState extends State<TimeTrackerPage> {
             MultiBlocProvider(
               providers: [
                 BlocProvider(create: (_) => sl<EmployeeSetTimeBloc>()),
-                BlocProvider(create: (_) => sl<EmployeeGetTimeBloc>()),
               ],
               child: InkWell(
                 borderRadius: BorderRadius.circular(5),

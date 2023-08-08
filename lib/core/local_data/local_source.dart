@@ -15,3 +15,26 @@ class LocalSource {
     return box.get('location');
   }
 }
+
+class LocalClientSource{
+  final Box<dynamic> box;
+  LocalClientSource(this.box);
+
+  void setClient(String client){
+    box.put('client_${client}', client);
+  }
+  String getClient() {
+    return box.get('client');
+  }
+}
+
+class LocalEmployeeSource{
+  final Box<dynamic> box;
+  LocalEmployeeSource(this.box);
+  void setEmployee(String employee){
+    box.put('employee_${employee}', employee);
+  }
+  String getEmployee() {
+    return box.get('employee');
+  }
+}

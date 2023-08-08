@@ -1,4 +1,3 @@
-import 'package:c_space/feature/client/presintation/bloc/client_get_time_bloc/client_bloc.dart';
 import 'package:c_space/feature/client/presintation/bloc/client_set_time_bloc/client_set_time_bloc.dart';
 import 'package:c_space/feature/issue/presentation/bloc/issue_get/issue_get_bloc.dart';
 import 'package:c_space/feature/main/presentation/bloc/main_bloc.dart';
@@ -20,9 +19,6 @@ class MainPage extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => sl<MainBloc>()),
         BlocProvider(create: (_) => sl<ClientSetTimeBloc>()),
-        BlocProvider(create: (_) => sl<ClientGetTimeBloc>()),
-        // BlocProvider(create: (_) => sl<EmployeeSetTimeBloc>()),
-        // BlocProvider(create: (_) => sl<EmployeeGetTimeBloc>()),
         BlocProvider(create: (_) => sl<IssueGetBloc>())
       ],
       child: MainBody(

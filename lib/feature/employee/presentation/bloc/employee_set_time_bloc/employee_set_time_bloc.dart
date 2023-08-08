@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:c_space/constants.dart';
@@ -11,9 +12,9 @@ part 'employee_set_time_event.dart';
 
 part 'employee_set_time_state.dart';
 
-class EmployeeSetTimeBloc
-    extends Bloc<EmployeeSetTimeEvent, EmployeeSetTimeState> {
+class EmployeeSetTimeBloc extends Bloc<EmployeeSetTimeEvent, EmployeeSetTimeState> {
   String locationNameLocal = sl<LocalSource>().getLocation();
+  String randNum = (Random().nextInt(900000) + 100000).toString();
 
   EmployeeSetTimeBloc() : super(EmployeeSetTimeState()) {
     on<EmployeeSetTime>(_setEmployee);
@@ -23,8 +24,6 @@ class EmployeeSetTimeBloc
     EmployeeSetTime event,
     Emitter<EmployeeSetTimeState> emit,
   ) async {
-    print(locationNameLocal);
-    print("dataaaaaa");
     DocumentSnapshot snap2 = await FirebaseFirestore.instance
         .collection(locationNameLocal)
         .doc('employee')
@@ -32,16 +31,19 @@ class EmployeeSetTimeBloc
         .doc(Constants.currentDay)
         .get();
     try {
-      await Future.delayed(Duration(seconds: 1));
-      String snap = snap2['checkIn'];
+      String checkIn = snap2['checkIn'];
+      String date = snap2['date'];
+
       await FirebaseFirestore.instance
           .collection(locationNameLocal)
           .doc('employee')
           .collection(event.name)
           .doc(Constants.currentDay)
           .update({
-        'checkIn': snap,
+        'checkIn': checkIn,
         'checkOut': event.time,
+        'date': date,
+        'name': event.name
       });
     } catch (e) {
       await FirebaseFirestore.instance
@@ -52,7 +54,10 @@ class EmployeeSetTimeBloc
           .set({
         'checkIn': event.time,
         'checkOut': "--/--",
+        'date': Constants.currentDay,
+        'name': event.name
       });
     }
+    sl<LocalEmployeeSource>().setEmployee(event.name);
   }
 }

@@ -1,4 +1,5 @@
-import 'package:c_space/feature/time_tracker/data/model/client_get_time_model.dart';
+
+import '../../../../history/data/model/client_get_time_model.dart';
 
 class ClientInfoArgument {
   final String clientName;

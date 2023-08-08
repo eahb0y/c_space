@@ -1,16 +1,15 @@
-import 'package:c_space/feature/client/data/model/client_get_time_model.dart';
-import 'package:c_space/feature/client/presintation/bloc/client_get_time_bloc/client_bloc.dart';
 import 'package:c_space/feature/client/presintation/bloc/client_set_time_bloc/client_set_time_bloc.dart';
 import 'package:c_space/feature/client/presintation/bloc/time_bloc/time_bloc.dart';
 import 'package:c_space/feature/client/presintation/pages/argument/client_argument_info.dart';
 import 'package:c_space/feature/client/presintation/pages/client_screen.dart';
 import 'package:c_space/feature/client/presintation/pages/widgets/client_info_screen.dart';
 import 'package:c_space/feature/client/presintation/pages/widgets/client_qr.dart';
-import 'package:c_space/feature/employee/presentation/bloc/employee_get_time_bloc/employee_get_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/bloc/employee_set_time_bloc/employee_set_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/page/employee_page.dart';
 import 'package:c_space/feature/employee/presentation/page/widget/employee_qr.dart';
+import 'package:c_space/feature/history/presentation/arguments/history_list_arguments.dart';
 import 'package:c_space/feature/history/presentation/pages/history_page.dart';
+import 'package:c_space/feature/history/presentation/pages/widgets/history_list_widget.dart';
 import 'package:c_space/feature/issue/presentation/pages/issue_page.dart';
 import 'package:c_space/feature/login/bloc/login_page_bloc.dart';
 import 'package:c_space/feature/login/page/main_screen_widget.dart';
@@ -70,13 +69,10 @@ class Rout {
         );
       case RoutName.client:
         return MaterialPageRoute(
-            builder: (context) => BlocProvider(
-                  create: (context) => ClientGetTimeBloc(),
-                  child: ClientScreen(
-                    name: settings.arguments is String
-                        ? settings.arguments as String
-                        : '',
-                  ),
+            builder: (context) => ClientScreen(
+                  name: settings.arguments is String
+                      ? settings.arguments as String
+                      : '',
                 ));
       case RoutName.clientInfo:
         return MaterialPageRoute(
@@ -88,15 +84,7 @@ class Rout {
                           : null),
                 ));
       case RoutName.employee:
-        return MaterialPageRoute(
-            builder: (context) => BlocProvider(
-                  create: (context) => sl<EmployeeGetTimeBloc>(),
-                  child: EmployeePage(
-                    name: settings.arguments is String
-                        ? settings.arguments as String
-                        : '',
-                  ),
-                ));
+        return MaterialPageRoute(builder: (context) => EmployeePage());
       case RoutName.history:
         return MaterialPageRoute(builder: (context) => HistoryPage());
       case RoutName.clientHistory:
@@ -106,8 +94,18 @@ class Rout {
                   child: ClientHistoryWidget(),
                 ));
       case RoutName.employeeHistory:
-        return MaterialPageRoute(builder: (context) => EmployeeHistoryWidget());
-
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => sl<ClientBloc>(),
+                  child: EmployeeHistoryWidget(),
+                ));
+      case RoutName.historyList:
+        return MaterialPageRoute(
+            builder: (context) => HistoryListWidget(
+                  listArguments: settings.arguments is HistoryListArguments
+                      ? settings.arguments as HistoryListArguments
+                      : null,
+                ));
       default:
         throw ('The rout does not exist');
     }
