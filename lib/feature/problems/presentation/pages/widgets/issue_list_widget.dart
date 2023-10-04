@@ -1,8 +1,9 @@
-import 'package:c_space/feature/issue/data/model/issue_get_time_model.dart';
-import 'package:c_space/feature/issue/presentation/bloc/issue_get/issue_get_bloc.dart';
+import 'package:c_space/feature/problems/data/model/issue_get_time_model.dart';
+import 'package:c_space/feature/problems/presentation/bloc/issue_get/issue_get_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'modal_botton_sheet.dart';
 import 'modal_button_sheet_update.dart';
 
 class IssueListWidget extends StatelessWidget {
@@ -14,20 +15,64 @@ class IssueListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<IssueGetBloc, IssueGetState>(
       builder: (context, state) {
-        return Padding(
+        return ListView.separated(
           padding: const EdgeInsets.all(8.0),
-          child: ListView.separated(
-              itemBuilder: (_, index) {
-                return InkWell(
-                  onLongPress: () {
+            itemBuilder: (_, index) {
+              return Dismissible(
+                key: UniqueKey(),
+                background: Ink(
+                  padding: EdgeInsets.only(left: 35),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.red,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+                    ],
+                  ),
+                ),
+                secondaryBackground: Container(
+                  margin: EdgeInsets.only(left: 20),
+                  padding: EdgeInsets.only(right: 35),
+                  decoration: BoxDecoration(
+                    color: Colors.yellow.shade700,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Icon(
+                        Icons.edit,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+                    ],
+                  ),
+                ),
+                onDismissed: (DismissDirection direction) {
+                  if (direction == DismissDirection.startToEnd) {
+                    context
+                        .read<IssueGetBloc>()
+                        .add(IssueDeleteEvent(id: issueModal![index].id));
+                    context.read<IssueGetBloc>().add(IssueGetEvent());
+                  } else {
                     showModalBottomSheet(
                         context: context,
-                        builder: (context) => ModalButtonSheetUpdate(
+                        builder: (context) => ModalBottomSheet(
                               id: issueModal![index].id,
                               issue: issueModal![index].issue,
+                          status: issueModal![index].status,
                             )).then((value) =>
                         context.read<IssueGetBloc>().add(IssueGetEvent()));
-                  },
+                  }
+                },
+                child: Material(
                   child: Ink(
                     decoration: BoxDecoration(
                         border: Border.all(
@@ -74,35 +119,21 @@ class IssueListWidget extends StatelessWidget {
                                       'Конечный срок: ${issueModal![index].deadline}'),
                                 ],
                               ),
-                              trailing: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    minimumSize: Size(75, 30),
-                                    backgroundColor: Colors.purple),
-                                onPressed: () {
-                                  context.read<IssueGetBloc>().add(
-                                      IssueDeleteEvent(
-                                          id: issueModal![index].id));
-                                  context
-                                      .read<IssueGetBloc>()
-                                      .add(IssueGetEvent());
-                                },
-                                child: Text('Удалить'),
-                              ),
                             ),
                           )
                         ],
                       ),
                     ),
                   ),
-                );
-              },
-              separatorBuilder: (_, __) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 1),
-                );
-              },
-              itemCount: issueModal?.length ?? 0),
-        );
+                ),
+              );
+            },
+            separatorBuilder: (_, __) {
+              return Padding(
+                padding: EdgeInsets.symmetric(vertical: 4),
+              );
+            },
+            itemCount: issueModal?.length ?? 0);
       },
     );
   }

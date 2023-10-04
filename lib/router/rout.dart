@@ -110,6 +110,8 @@ class Rout {
         return buildPageWithDefaultTransition(child: TimeTrackerPage());
       case RoutName.issue:
         return buildPageWithDefaultTransition(child: IssuePage());
+      case RoutName.debts:
+        return buildPageWithDefaultTransition(child: IssuePage());
       default:
         return MaterialPageRoute(builder: (_) => const TimeTrackerPage());
     }

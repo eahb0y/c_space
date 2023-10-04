@@ -14,6 +14,7 @@ class HistoryPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: ListView(
+
           children: [
             Card(
               child: ListTile(

@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:c_space/constants.dart';
 import 'package:c_space/core/local_data/local_source.dart';
-import 'package:c_space/feature/issue/data/model/issue_get_time_model.dart';
+import 'package:c_space/feature/problems/data/model/issue_get_time_model.dart';
 import 'package:c_space/injection_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
@@ -28,7 +28,6 @@ class IssueGetBloc extends Bloc<IssueEvent, IssueGetState> {
 
   Future<void> getIssue(IssueGetEvent event,
       Emitter<IssueGetState> emit) async {
-    // await Future.delayed( Duration(seconds: 2));
     try {
       List<IssueGetTimeModel> issueModal = [];
       final request =

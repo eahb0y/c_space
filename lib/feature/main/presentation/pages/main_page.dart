@@ -1,5 +1,7 @@
 import 'package:c_space/feature/client/presintation/bloc/client_set_time_bloc/client_set_time_bloc.dart';
-import 'package:c_space/feature/issue/presentation/bloc/issue_get/issue_get_bloc.dart';
+import 'package:c_space/feature/debt/presentation/bloc/check_box_bloc/debt_bloc.dart';
+import 'package:c_space/feature/debt/presentation/bloc/debt_get_bloc/debt_get_bloc.dart';
+import 'package:c_space/feature/problems/presentation/bloc/issue_get/issue_get_bloc.dart';
 import 'package:c_space/feature/main/presentation/bloc/main_bloc.dart';
 import 'package:c_space/injection_container.dart';
 import 'package:c_space/router/rout.dart';
@@ -19,7 +21,10 @@ class MainPage extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => sl<MainBloc>()),
         BlocProvider(create: (_) => sl<ClientSetTimeBloc>()),
-        BlocProvider(create: (_) => sl<IssueGetBloc>())
+        BlocProvider(create: (_) => sl<IssueGetBloc>()),
+        BlocProvider(create: (_) => sl<DebtBloc>()),
+        BlocProvider(create: (_) => sl<DebtGetBloc>()),
+
       ],
       child: MainBody(
         initialRoute: initialRoute,

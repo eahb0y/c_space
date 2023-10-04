@@ -21,4 +21,31 @@ class Constants {
     'yellow',
     'green',
   ];
+  static List<String> month = [
+    'Январь',
+    'Февраль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентябрь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь',
+  ];
+
+  static List<String> tariff = [
+    'Flex',
+    'Dedicated',
+    '1x Office',
+    '2x Office',
+    '3x Office',
+    '4x Office',
+    '6x Office',
+    '8x Office',
+    '10x Office',
+    '12x Office',
+  ];
 }

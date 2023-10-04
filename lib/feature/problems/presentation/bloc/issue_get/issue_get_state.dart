@@ -1,4 +1,4 @@
-part of 'issue_get_bloc.dart';
+part of '../../../../problems/presentation/bloc/issue_get/issue_get_bloc.dart';
 
 class IssueGetState extends Equatable {
   final List<IssueGetTimeModel>? issueModal;

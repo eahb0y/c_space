@@ -15,47 +15,52 @@ class EmployeeHistoryWidget extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.purple,
-
           ),
-          body: sl<LocalEmployeeSource>().box.isEmpty ? Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 300,
-                  width: 300,
-                  child: Lottie.asset(
-                    'assets/animation/empty_animation.json',
-                    repeat: false,
-                    fit: BoxFit.cover,
+          body: sl<LocalEmployeeSource>().box.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 300,
+                        width: 300,
+                        child: Lottie.asset(
+                          'assets/animation/empty_animation.json',
+                          repeat: false,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Text(
+                        'Нету сотрудников',
+                        style: TextStyle(fontSize: 26),
+                      )
+                    ],
                   ),
-                ),
-                Text('Нету сотрудников', style: TextStyle(fontSize: 26),)
-              ],
-            ),
-          ) : Padding(
+                )
+              : Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView.separated(
-                      itemBuilder: (_, index) {
-                        String name = sl<LocalEmployeeSource>().box.getAt(index);
-                        return Card(
-                          child: ListTile(
-                            title: Text(
-                              name,
-                            ),
-                            onTap: () {
-                              print(name);
-                              context
-                                  .read<ClientBloc>()
-                                  .add(EmployeeGetTime(name: name));
-                            },
+                    itemBuilder: (_, index) {
+                      String name = sl<LocalEmployeeSource>().box.getAt(index);
+                      return Card(
+                        child: ListTile(
+                          title: Text(
+                            name,
                           ),
-                        );
-                      },
-                      separatorBuilder: (_, __) => SizedBox(
-                            height: 5,
-                          ),
-                      itemCount: sl<LocalEmployeeSource>().box.length,),
+                          onTap: () {
+                            print(name);
+                            context
+                                .read<ClientBloc>()
+                                .add(EmployeeGetTime(name: name));
+                          },
+                        ),
+                      );
+                    },
+                    separatorBuilder: (_, __) => SizedBox(
+                      height: 5,
+                    ),
+                    itemCount: sl<LocalEmployeeSource>().box.length,
+                  ),
                 ),
         );
       },

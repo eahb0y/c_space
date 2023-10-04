@@ -1,5 +1,5 @@
 import 'package:c_space/constants.dart';
-import 'package:c_space/feature/issue/presentation/bloc/issue_get/issue_get_bloc.dart';
+import 'package:c_space/feature/problems/presentation/bloc/issue_get/issue_get_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,11 +8,7 @@ class ModalButtonSheetUpdate extends StatefulWidget {
   final String id;
   final String issue;
 
-  ModalButtonSheetUpdate({
-    super.key,
-    required this.id,
-    required this.issue
-  });
+  ModalButtonSheetUpdate({super.key, required this.id, required this.issue});
 
   @override
   State<ModalButtonSheetUpdate> createState() => _ModalButtonSheetUpdateState();
@@ -22,7 +18,7 @@ class _ModalButtonSheetUpdateState extends State<ModalButtonSheetUpdate> {
   DateTime dataTime =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   TextEditingController controller = TextEditingController();
-
+  bool isEmpty = false;
   String currentState = Constants.status[0];
 
   @override
@@ -30,20 +26,18 @@ class _ModalButtonSheetUpdateState extends State<ModalButtonSheetUpdate> {
     super.initState();
     controller.text = widget.issue;
   }
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 270,
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: controller,
-              decoration: InputDecoration(
-                hintText: 'Write some issue..',
-                border: OutlineInputBorder(),
-              ),
+          TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              hintText: 'Write some issue..',
+              border: OutlineInputBorder(),
             ),
           ),
           Text('Select status',
@@ -56,45 +50,9 @@ class _ModalButtonSheetUpdateState extends State<ModalButtonSheetUpdate> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Radio(
-                value: Constants.status[0],
-                groupValue: currentState,
-                onChanged: (value) {
-                  setState(() {
-                    currentState = value.toString();
-                  });
-                  print(currentState);
-                },
-                fillColor: MaterialStateColor.resolveWith(
-                  (states) => Colors.red,
-                ),
-              ),
-              Radio(
-                value: Constants.status[1],
-                groupValue: currentState,
-                onChanged: (value) {
-                  setState(() {
-                    currentState = value.toString();
-                  });
-                  print(currentState);
-                },
-                fillColor: MaterialStateColor.resolveWith(
-                  (states) => Colors.yellow,
-                ),
-              ),
-              Radio(
-                value: Constants.status[2],
-                groupValue: currentState,
-                onChanged: (value) {
-                  setState(() {
-                    currentState = value.toString();
-                  });
-                  print(currentState);
-                },
-                fillColor: MaterialStateColor.resolveWith(
-                  (states) => Colors.green,
-                ),
-              ),
+              buildRadio(color: Colors.red, value: Constants.status[0]),
+              buildRadio(color: Colors.yellow, value: Constants.status[1]),
+              buildRadio(color: Colors.green, value: Constants.status[2]),
             ],
           ),
           Padding(
@@ -139,17 +97,26 @@ class _ModalButtonSheetUpdateState extends State<ModalButtonSheetUpdate> {
           BlocBuilder<IssueGetBloc, IssueGetState>(
             builder: (context, state) {
               return ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    minimumSize: Size(250, 45),
+                    backgroundColor: isEmpty ? Colors.red : Colors.purple),
                 onPressed: () {
-                  Navigator.pop(context);
-                  context.read<IssueGetBloc>().add(
-                        IssueUpdateEvent(
-                          status: currentState,
-                          issue: controller.text,
-                          deadline:
-                              '${dataTime.year}-${dataTime.month}-${dataTime.day}',
-                          id: widget.id,
-                        ),
-                      );
+                  if (controller.text.isNotEmpty) {
+                    Navigator.pop(context);
+                    context.read<IssueGetBloc>().add(
+                          IssueUpdateEvent(
+                            status: currentState,
+                            issue: controller.text,
+                            deadline:
+                                '${dataTime.year}-${dataTime.month}-${dataTime.day}',
+                            id: widget.id,
+                          ),
+                        );
+                  } else {
+                    setState(() {
+                      isEmpty = true;
+                    });
+                  }
                 },
                 child: Text(
                   'Add issue',
@@ -161,6 +128,21 @@ class _ModalButtonSheetUpdateState extends State<ModalButtonSheetUpdate> {
             },
           ),
         ],
+      ),
+    );
+  }
+
+  Radio<String> buildRadio({required String value, required Color color}) {
+    return Radio(
+      value: value,
+      groupValue: currentState,
+      onChanged: (value) {
+        setState(() {
+          currentState = value.toString();
+        });
+      },
+      fillColor: MaterialStateColor.resolveWith(
+        (states) => color,
       ),
     );
   }

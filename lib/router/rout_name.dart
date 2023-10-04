@@ -13,4 +13,5 @@ class RoutName{
   static const employeeHistory = '/employeeHistory';
   static const clientHistory = '/clientHistory';
   static const historyList = 'historyList';
+  static const debts = '/debts';
 }

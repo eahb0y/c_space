@@ -26,6 +26,9 @@ class LocalClientSource{
   String getClient() {
     return box.get('client');
   }
+  void deleteClient(String client){
+    box.delete('client_${client}');
+  }
 }
 
 class LocalEmployeeSource{

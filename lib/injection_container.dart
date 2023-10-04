@@ -8,8 +8,11 @@ import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'core/local_data/local_source.dart';
+import 'feature/debt/presentation/bloc/check_box_bloc/debt_bloc.dart';
+import 'feature/debt/presentation/bloc/debt_add_bloc/debt_add_bloc.dart';
+import 'feature/debt/presentation/bloc/debt_get_bloc/debt_get_bloc.dart';
 import 'feature/history/presentation/bloc/client_bloc/client_bloc.dart';
-import 'feature/issue/presentation/bloc/issue_get/issue_get_bloc.dart';
+import 'feature/problems/presentation/bloc/issue_get/issue_get_bloc.dart';
 import 'feature/login/bloc/login_page_bloc.dart';
 import 'feature/main/presentation/bloc/main_bloc.dart';
 
@@ -32,6 +35,9 @@ Future<void> init() async {
   sl.registerFactory(() => EmployeeQr());
   sl.registerFactory(() => IssueGetBloc());
   sl.registerFactory(() => ClientBloc());
+  sl.registerFactory(() => DebtBloc());
+  // sl.registerFactory(() => DebtAddBloc());
+  sl.registerFactory(() => DebtGetBloc());
 
 }
 
