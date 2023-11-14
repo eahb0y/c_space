@@ -1,23 +1,27 @@
-import 'package:c_space/feature/client/presintation/bloc/client_get_time_bloc/client_bloc.dart';
 import 'package:c_space/feature/client/presintation/bloc/client_set_time_bloc/client_set_time_bloc.dart';
-import 'package:c_space/feature/client/presintation/bloc/time_bloc/time_bloc.dart';
-import 'package:c_space/feature/client/presintation/pages/argument/client_argument_info.dart';
 import 'package:c_space/feature/client/presintation/pages/client_screen.dart';
-import 'package:c_space/feature/client/presintation/pages/widgets/client_info_screen.dart';
 import 'package:c_space/feature/client/presintation/pages/widgets/client_qr.dart';
-import 'package:c_space/feature/employee/presentation/bloc/employee_get_time_bloc/employee_get_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/bloc/employee_set_time_bloc/employee_set_time_bloc.dart';
 import 'package:c_space/feature/employee/presentation/page/employee_page.dart';
 import 'package:c_space/feature/employee/presentation/page/widget/employee_qr.dart';
+import 'package:c_space/feature/history/presentation/arguments/history_list_arguments.dart';
+import 'package:c_space/feature/history/presentation/pages/history_page.dart';
+import 'package:c_space/feature/history/presentation/pages/widgets/history_list_widget.dart';
+import 'package:c_space/feature/issue/presentation/pages/issue_page.dart';
 import 'package:c_space/feature/login/bloc/login_page_bloc.dart';
 import 'package:c_space/feature/login/page/main_screen_widget.dart';
 import 'package:c_space/feature/main/presentation/pages/main_page.dart';
 import 'package:c_space/feature/splash/presentation/pages/splash_page.dart';
+import 'package:c_space/feature/time_tracker/presentation/pages/time_tracker_page.dart';
 import 'package:c_space/injection_container.dart';
 import 'package:c_space/router/rout_name.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../feature/history/presentation/bloc/client_bloc/client_bloc.dart';
+import '../feature/history/presentation/pages/widgets/client_history_widget.dart';
+import '../feature/history/presentation/pages/widgets/employee_history_widget.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final shellRootNavigatorKey = GlobalKey<NavigatorState>();
@@ -56,25 +60,40 @@ class Rout {
       case RoutName.employeeQr:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => sl<EmployeeSetTimeBloc>(),
+            create: (context) => EmployeeSetTimeBloc(),
             child: EmployeeQr(),
           ),
         );
       case RoutName.client:
         return MaterialPageRoute(
-            builder: (context) => ClientScreen());
-      case RoutName.clientInfo:
-        return MaterialPageRoute(
-            builder: (context) => BlocProvider(
-                  create: (context) => TimeBloc(),
-                  child: ClientInfoScreen(
-                      argument: settings.arguments is ClientInfoArgument
-                          ? settings.arguments as ClientInfoArgument
-                          : null),
+            builder: (context) => ClientScreen(
+                  name: settings.arguments is String
+                      ? settings.arguments as String
+                      : '',
                 ));
       case RoutName.employee:
+        return MaterialPageRoute(builder: (context) => EmployeePage());
+      case RoutName.history:
+        return MaterialPageRoute(builder: (context) => HistoryPage());
+      case RoutName.clientHistory:
         return MaterialPageRoute(
-            builder: (context) => EmployeePage());
+            builder: (context) => BlocProvider(
+                  create: (context) => sl<ClientBloc>(),
+                  child: ClientHistoryWidget(),
+                ));
+      case RoutName.employeeHistory:
+        return MaterialPageRoute(
+            builder: (context) => BlocProvider(
+                  create: (context) => sl<ClientBloc>(),
+                  child: EmployeeHistoryWidget(),
+                ));
+      case RoutName.historyList:
+        return MaterialPageRoute(
+            builder: (context) => HistoryListWidget(
+                  listArguments: settings.arguments is HistoryListArguments
+                      ? settings.arguments as HistoryListArguments
+                      : null,
+                ));
       default:
         throw ('The rout does not exist');
     }
@@ -86,14 +105,15 @@ class Rout {
     }
     switch (settings.name) {
       case RoutName.initial:
-        return MaterialPageRoute(builder: (_) => const EmployeePage());
-      case RoutName.employee:
-        return buildPageWithDefaultTransition(child: EmployeePage());
-      case RoutName.client:
-        return buildPageWithDefaultTransition(
-            child: ClientScreen());
+        return MaterialPageRoute(builder: (_) => const TimeTrackerPage());
+      case RoutName.timeTracker:
+        return buildPageWithDefaultTransition(child: TimeTrackerPage());
+      case RoutName.issue:
+        return buildPageWithDefaultTransition(child: IssuePage());
+      case RoutName.debts:
+        return buildPageWithDefaultTransition(child: IssuePage());
       default:
-        return MaterialPageRoute(builder: (_) => const EmployeePage());
+        return MaterialPageRoute(builder: (_) => const TimeTrackerPage());
     }
   }
 }
